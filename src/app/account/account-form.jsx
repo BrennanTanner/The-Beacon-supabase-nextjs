@@ -19,6 +19,7 @@ export default function AccountForm({ session }) {
    * @param uid Supabase User ID
    */
   const initializeOneSignal = async (uid) => {
+    
     if (oneSignalInitialized) {
       return
     }
@@ -32,7 +33,7 @@ export default function AccountForm({ session }) {
       allowLocalhostAsSecureOrigin: true,
     })
 
-    await OneSignal.setExternalUserId(uid)
+    await OneSignal.login(uid)
   }
 
   const getProfile = useCallback(async () => {
@@ -104,26 +105,7 @@ export default function AccountForm({ session }) {
      setLoading(false)
    }
  }
-
- useEffect(() => {
-  const initialize = async () => {
-    if (user) {
-      initializeOneSignal(user.id)
-    }
-  }
-
-  initialize()
-
-  const authListener = supabase.auth.onAuthStateChange(async (event, session) => {
-    // if (user) {
-    //   initializeOneSignal(user.id)
-    // }
-  })
-
-  return () => {
-    authListener.data.subscription.unsubscribe()
-  }
-}, [])
+ 
 
  async function acceptFriendRequest( userId ) {
   try {
@@ -144,6 +126,19 @@ export default function AccountForm({ session }) {
   }
 
 }
+
+useEffect(() => {
+  const authListener = supabase.auth.onAuthStateChange(async (event, session) => {
+    const user = session?.user ?? null
+    if (user) {
+      initializeOneSignal(user.id)
+    }
+  })
+
+  return () => {
+    authListener.data.subscription.unsubscribe()
+  }
+}, [])
 
   return (
     <div className="form-widget">
