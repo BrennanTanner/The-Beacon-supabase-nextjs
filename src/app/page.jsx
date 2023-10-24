@@ -1,19 +1,25 @@
-import AuthForm from './auth-form';
-import Navbar from './Navbar';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import AuthForm from './components/auth-form';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import AccountForm from './components/account-form';
+import Navbar from './components/Navbar';
+import BottomNav from './components/bottomNav';
 
-const cookieStore = cookies();
-const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
-const {
-   data: { session },
-} = await supabase.auth.getSession();
-
-export default function Home() {
-   return (
-      <main>
-         <Navbar />
-         <div className='col-6 auth-widget'>{!session ?? <AuthForm />}</div>
-      </main>
-   );
+export default async function Home() {
+   const cookieStore = cookies();
+   const supabase = createServerComponentClient({ cookies: () => cookieStore });
+   const {
+      data: { session },
+   } = await supabase.auth.getSession();
+   
+   if (session) {
+      return (
+         <main>
+            <Navbar session={session} />
+            <AccountForm session={session} />
+         </main>
+      );
+   } else {
+      return <AuthForm />;
+   }
 }
