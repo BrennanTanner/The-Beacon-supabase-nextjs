@@ -19,8 +19,9 @@ import MenuDrawer from './SideMenu/menuDrawer'
 const settings = ['Profile', 'Logout'];
 
 export default function Navbar({ session }) {
-   const [anchorElUser, setAnchorElUser] = React.useState(null);
+   const [anchorElUser, setAnchorElUser] = useState(null);
 
+   const [userSession, setUserSession] = useState(session);
    const [drawerOpen, setDrawerOpen] = useState({
       left: false,
       right: false,
@@ -88,7 +89,7 @@ export default function Navbar({ session }) {
                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                            <Avatar
                               alt='Remy Sharp'
-                              src='/static/images/avatar/2.jpg'
+                              src={session.user.user_metadata.avatar_url}
                            />
                         </IconButton>
                      </Tooltip>
@@ -128,7 +129,7 @@ export default function Navbar({ session }) {
                onClose={toggleDrawer('left', false)}
                onOpen={toggleDrawer('left', true)}
             >
-               <MenuDrawer anchor={'left'}/>
+               <MenuDrawer session={userSession}/>
             </SwipeableDrawer>
          </AppBar>
       );

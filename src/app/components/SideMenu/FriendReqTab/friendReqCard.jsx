@@ -5,8 +5,7 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import FireIcon from '@mui/icons-material/LocalFireDepartment';
 
-export default function FriendCard({friend}) {
-
+export default function FriendReqCard() {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea sx={{display: "flex"}}>

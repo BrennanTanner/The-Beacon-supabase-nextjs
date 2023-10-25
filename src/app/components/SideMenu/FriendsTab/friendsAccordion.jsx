@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FriendCard from './friendCard';
 
-export default function FriendAccordion() {
+export default function FriendAccordion({friends}) {
    const [expanded, setExpanded] = React.useState(false);
 
    const handleChange = (panel) => (event, isExpanded) => {
@@ -18,13 +18,14 @@ export default function FriendAccordion() {
       <Accordion
          expanded={expanded === 'panel1'}
          onChange={handleChange('panel1')}
+         sx={{ width: '100%'}}
       >
          <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls='panel1bh-content'
             id='panel1bh-header'
          >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>
+            <Typography sx={{ width: '50%', flexShrink: 0 }}>
               Friends
             </Typography>
             {/* <Typography sx={{ color: 'text.secondary' }}>
@@ -32,7 +33,9 @@ export default function FriendAccordion() {
             </Typography> */}
          </AccordionSummary>
          <AccordionDetails>
-            <FriendCard />
+         {friends.map((friend) => (
+               <FriendCard friend={friend}/>
+            ))}
          </AccordionDetails>
       </Accordion>
    );

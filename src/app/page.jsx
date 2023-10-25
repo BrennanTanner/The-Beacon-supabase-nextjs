@@ -3,7 +3,6 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import AccountForm from './components/account-form';
 import Navbar from './components/Navbar';
-import BottomNav from './components/bottomNav';
 
 export default async function Home() {
    const cookieStore = cookies();
