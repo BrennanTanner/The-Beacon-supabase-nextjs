@@ -7,7 +7,7 @@ import FireIcon from '@mui/icons-material/LocalFireDepartment';
 
 export default function GroupCard(group) {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 }} >
       <CardActionArea sx={{display: "flex"}}>
       <FireIcon/>
         <CardContent>

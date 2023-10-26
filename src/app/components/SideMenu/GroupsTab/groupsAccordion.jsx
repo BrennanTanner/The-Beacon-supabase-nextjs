@@ -8,13 +8,26 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import GroupCard from './groupCard';
+import { getGroups } from '@/services/dataFetchers';
 
-export default function GroupAccordion({groups}) {
+export default function GroupAccordion({ user }) {
+   const [loading, setLoading] = useState(true);
    const [expanded, setExpanded] = useState(false);
+   const [groups, setGroups] = useState([]);
 
    const handleChange = (panel) => (event, isExpanded) => {
       setExpanded(isExpanded ? panel : false);
    };
+
+   const groupData = useCallback(async ()=> {
+      setLoading(true);
+      setGroups(await getGroups(user));
+      setLoading(false);
+   }, [user, getGroups]);
+
+   useEffect(() => {
+      groupData();
+   }, []);
 
    return (
       <Accordion
@@ -33,8 +46,8 @@ export default function GroupAccordion({groups}) {
             </Typography> */}
          </AccordionSummary>
          <AccordionDetails>
-         {groups.map((group) => (
-               <GroupCard group={group.groups}/>
+            {groups.map((group) => (
+               <GroupCard group={group.groups} key={group.groups.id}/>
             ))}
          </AccordionDetails>
       </Accordion>
