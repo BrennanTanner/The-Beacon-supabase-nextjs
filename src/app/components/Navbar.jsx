@@ -1,5 +1,6 @@
 'use client';
 import React, { useCallback, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import {
    AppBar,
    Box,
@@ -11,22 +12,24 @@ import {
    Avatar,
    Tooltip,
    MenuItem,
-   SwipeableDrawer
+   SwipeableDrawer,
+   Button
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuDrawer from './SideMenu/menuDrawer'
-
-const settings = ['Profile', 'Logout'];
+import TransitionsModal from './Modal/modal';
+import AccountForm from './Forms/account-form';
 
 export default function Navbar({ session }) {
    const [anchorElUser, setAnchorElUser] = useState(null);
-
    const [userSession, setUserSession] = useState(session);
    const [drawerOpen, setDrawerOpen] = useState({
       left: false,
       right: false,
    });
 
+   const { push } = useRouter();
+   
    const toggleDrawer = (anchor, open) => (event) => {
       if (
          event &&
@@ -109,16 +112,26 @@ export default function Navbar({ session }) {
                         open={Boolean(anchorElUser)}
                         onClose={handleCloseUserMenu}
                      >
-                        {settings.map((setting) => (
-                           <MenuItem
-                              key={setting}
+                        <MenuItem
+                              key='1'
                               onClick={handleCloseUserMenu}
                            >
-                              <Typography textAlign='center'>
-                                 {setting}
-                              </Typography>
+                                 <TransitionsModal text={'Profile'} contents={<AccountForm session={userSession}/>}/>
+                              
                            </MenuItem>
-                        ))}
+
+                           <form id='logout' action="/auth/signout" method="post">
+                              
+                           </form>
+                           <MenuItem
+                              key='2'
+                              onClick={()=>{document.getElementById("logout").submit()}}
+                           >
+                              <Button textAlign='center'>
+                                 Logout
+                              </Button>
+                           </MenuItem>
+                        
                      </Menu>
                   </Box>
                </Toolbar>

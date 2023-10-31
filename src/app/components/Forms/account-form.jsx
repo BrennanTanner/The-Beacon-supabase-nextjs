@@ -1,7 +1,7 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import OneSignal from 'react-onesignal'
+
 
 export default function AccountForm({ session }) {
   const supabase = createClientComponentClient()
@@ -10,31 +10,6 @@ export default function AccountForm({ session }) {
   const [username, setUsername] = useState(null)
   const [avatar_url, setAvatarUrl] = useState(null)
   const user = session?.user
-  const oneSignalAppId = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID
-  
-  const [oneSignalInitialized, setOneSignalInitialized] = useState(false)
-
-  /**
-   * Initializes OneSignal SDK for a given Supabase User ID
-   * @param uid Supabase User ID
-   */
-  const initializeOneSignal = async (uid) => {
-    
-    if (oneSignalInitialized) {
-      return
-    }
-    setOneSignalInitialized(true)
-    await OneSignal.init({
-      appId: oneSignalAppId,
-      notifyButton: {
-        enable: true,
-      },
-
-      allowLocalhostAsSecureOrigin: true,
-    })
-
-    await OneSignal.login(uid)
-  }
 
   const getProfile = useCallback(async () => {
     try {
@@ -86,47 +61,6 @@ export default function AccountForm({ session }) {
     }
   }
 
-  async function createFriendRequest( userId ) {
-   try {
-     setLoading(true)
-     
-     let { error } = await supabase.from('connection_requests').upsert({
-       sender: userId,
-       receiver: 'cbf30feb-dec7-456e-ab81-39b2be0f63fa',
-       created_at: new Date().toISOString(),
-       status: 'p',
-     })
-     console.log(error);
-     if (error) throw error
-     alert('request sent!')
-   } catch (error) {
-     alert('Error sending request!')
-   } finally {
-     setLoading(false)
-   }
- }
- 
-
- async function acceptFriendRequest( userId ) {
-  try {
-    setLoading(true)
-    //console.log(userId);
-    let { error } = await supabase
-    .from('connection_requests')
-    .update({ status: 'a' })
-    .eq('receiver', userId)
-
-    console.log(error);
-    if (error) throw error
-    alert('request sent!')
-  } catch (error) {
-    alert('Error sending request!')
-  } finally {
-    setLoading(false)
-  }
-
-}
-
 useEffect(() => {
   const authListener = supabase.auth.onAuthStateChange(async (event, session) => {
     const user = session?.user ?? null
@@ -145,6 +79,15 @@ useEffect(() => {
       <div>
         <label htmlFor="email">Email</label>
         <input id="email" type="text" value={session?.user.email} disabled />
+      </div>
+      <div>
+        <label htmlFor="avatarurl">Avatar URL</label>
+        <input
+          id="avatarUrl"
+          type="text"
+          value={avatar_url || ''}
+          onChange={(e) => setAvatarUrl(e.target.value)}
+        />
       </div>
       <div>
         <label htmlFor="fullName">Full Name</label>
@@ -172,34 +115,6 @@ useEffect(() => {
         >
           {loading ? 'Loading ...' : 'Update'}
         </button>
-      </div>
-
-      <div>
-        <button
-          className="button primary block"
-          onClick={() => createFriendRequest(user.id)}
-          disabled={loading}
-        >
-          {loading ? 'Loading ...' : 'friend request'}
-        </button>
-      </div>
-
-      <div>
-        <button
-          className="button primary block"
-          onClick={() => acceptFriendRequest(user.id)}
-          disabled={loading}
-        >
-          {loading ? 'Loading ...' : 'accept request'}
-        </button>
-      </div>
-
-      <div>
-        <form action="/auth/signout" method="post">
-          <button className="button block" type="submit">
-            Sign out
-          </button>
-        </form>
       </div>
     </div>
   )

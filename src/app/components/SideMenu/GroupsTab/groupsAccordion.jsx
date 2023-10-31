@@ -5,10 +5,15 @@ import {
    AccordionDetails,
    AccordionSummary,
    Typography,
+   Card,
+   CardContent,
+   CardActionArea
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import AddIcon from '@mui/icons-material/Add';
 import GroupCard from './groupCard';
 import { getGroups } from '@/services/dataFetchers';
+import TransitionsModal from '../../Modal/modal';
 
 export default function GroupAccordion({ user }) {
    const [loading, setLoading] = useState(true);
@@ -19,7 +24,7 @@ export default function GroupAccordion({ user }) {
       setExpanded(isExpanded ? panel : false);
    };
 
-   const groupData = useCallback(async ()=> {
+   const groupData = useCallback(async () => {
       setLoading(true);
       setGroups(await getGroups(user));
       setLoading(false);
@@ -41,14 +46,26 @@ export default function GroupAccordion({ user }) {
             id='panel1bh-header'
          >
             <Typography sx={{ width: '50%', flexShrink: 0 }}>Groups</Typography>
-            {/* <Typography sx={{ color: 'text.secondary' }}>
-               I am an accordion
-            </Typography> */}
          </AccordionSummary>
          <AccordionDetails>
+
+         <TransitionsModal text={'new Group'} contents={'Hi'}/>
+         
             {groups.map((group) => (
-               <GroupCard group={group.groups} key={group.groups.id}/>
+               <GroupCard group={group.groups} key={group.groups.id} />
             ))}
+
+            {/* <Card sx={{ maxWidth: 345 }}>
+               <CardActionArea sx={{ display: 'flex' }}>
+                  <AddIcon />
+                  <CardContent>
+                     <Typography gutterBottom variant='h5' component='div'>
+                        create group
+                     </Typography>
+                  </CardContent>
+               </CardActionArea>
+            </Card> */}
+
          </AccordionDetails>
       </Accordion>
    );

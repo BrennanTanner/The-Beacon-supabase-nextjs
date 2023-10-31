@@ -8,7 +8,7 @@ import FireIcon from '@mui/icons-material/LocalFireDepartment';
 export default function FriendCard({friend}) {
   return (
     <Card sx={{ maxWidth: 345 }} >
-      <CardActionArea sx={{display: "flex"}}>
+      <CardActionArea sx={{display: "flex"}} >
       <FireIcon/>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

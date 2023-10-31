@@ -5,10 +5,15 @@ import {
    AccordionDetails,
    AccordionSummary,
    Typography,
+   Card,
+   CardContent,
+   CardActionArea,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import AddIcon from '@mui/icons-material/Add';
 import FriendCard from './friendCard';
 import { getFriends } from '@/services/dataFetchers';
+import TransitionsModal from '../../Modal/modal';
 
 export default function FriendAccordion({ user }) {
    const [loading, setLoading] = useState(true);
@@ -19,7 +24,7 @@ export default function FriendAccordion({ user }) {
       setExpanded(isExpanded ? panel : false);
    };
 
-   const friendData = useCallback(async ()=> {
+   const friendData = useCallback(async () => {
       setLoading(true);
       setFriends(await getFriends(user));
       setLoading(false);
@@ -43,11 +48,9 @@ export default function FriendAccordion({ user }) {
             <Typography sx={{ width: '50%', flexShrink: 0 }}>
                Friends
             </Typography>
-            {/* <Typography sx={{ color: 'text.secondary' }}>
-               I am an accordion
-            </Typography> */}
          </AccordionSummary>
          <AccordionDetails>
+         <TransitionsModal text={'Add Friend'} contents={'Hi'}/>
             {friends.map((friend) => (
                <FriendCard friend={friend} key={friend.id} />
             ))}
