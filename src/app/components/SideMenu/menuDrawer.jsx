@@ -7,7 +7,7 @@ import FriendsReqAccordion from './FriendReqTab/friendsReqAccordion';
 import Copyright from './Copyright';
 
 export default function MenuDrawer({ session }) {
-   
+   const [friends, setFriends] = useState({});
    const user = session?.user;
 
    return (
@@ -21,10 +21,10 @@ export default function MenuDrawer({ session }) {
       >
          <List sx={{ width: { xs: '80vw', sm: '50vw', lg: '33vw' } }}>
             <ListItem disablePadding>
-               <GroupAccordion user={user} />
+               <GroupAccordion user={user} friends={friends} />
             </ListItem>
             <ListItem disablePadding>
-               <FriendsAccordion user={user} />
+               <FriendsAccordion user={user} onFindFriends={setFriends} />
             </ListItem>
             <ListItem disablePadding>
                <FriendsReqAccordion user={user} />

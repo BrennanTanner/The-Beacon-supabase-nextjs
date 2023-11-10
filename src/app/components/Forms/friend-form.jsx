@@ -3,8 +3,7 @@ import { createFriendRequest } from '@/services/dataSenders'
 import { useCallback, useEffect, useState } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
-
-export default function AccountForm({ session }) {
+export default function FriendForm({ session }) {
   const supabase = createClientComponentClient()
   const [loading, setLoading] = useState(true)
   const [fullname, setFullname] = useState(null)

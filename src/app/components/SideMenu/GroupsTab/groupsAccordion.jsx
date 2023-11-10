@@ -14,8 +14,9 @@ import AddIcon from '@mui/icons-material/Add';
 import GroupCard from './groupCard';
 import { getGroups } from '@/services/dataFetchers';
 import TransitionsModal from '../../Modal/modal';
+import GroupForm from '../../Forms/group-form';
 
-export default function GroupAccordion({ user }) {
+export default function GroupAccordion({ user, friends }) {
    const [loading, setLoading] = useState(true);
    const [expanded, setExpanded] = useState(false);
    const [groups, setGroups] = useState([]);
@@ -49,7 +50,7 @@ export default function GroupAccordion({ user }) {
          </AccordionSummary>
          <AccordionDetails>
 
-         <TransitionsModal text={'new Group'} contents={'Hi'}/>
+         <TransitionsModal text={'new Group'} contents={<GroupForm session={user} friends={friends}/>}/>
          
             {groups.map((group) => (
                <GroupCard group={group.groups} key={group.groups.id} />

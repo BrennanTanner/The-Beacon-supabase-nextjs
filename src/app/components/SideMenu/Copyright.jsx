@@ -13,8 +13,8 @@ export default function Copyright(props) {
          {...props}
       >
          {'Copyright © '}
-         <Link color='inherit' href='https://mui.com/'>
-            Bear Grease
+         <Link color='inherit' href='https://www.brennantanner.com'>
+            Brennan Tanner
          </Link>{' '}
          {new Date().getFullYear()}
          {'.'}

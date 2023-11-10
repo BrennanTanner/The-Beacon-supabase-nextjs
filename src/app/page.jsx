@@ -2,6 +2,7 @@ import AuthForm from './components/auth-form';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import Navbar from './components/Navbar';
+import BeaconCarousel from './components/Beacon/beaconCarousel';
 
 export default async function Home() {
    const cookieStore = cookies();
@@ -39,6 +40,7 @@ export default async function Home() {
       return (
          <main>
             <Navbar session={session} />
+            <BeaconCarousel session={session} />
          </main>
       );
    } else {

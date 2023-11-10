@@ -7,7 +7,7 @@ async function getGroups(user) {
       const { data, error, status } = await supabase
          .from('group_members')
          .select(
-            `groups(group_name, id, group_members(member_id, profiles(username)))`
+            `beacon_lit, id, groups(group_name, id, group_members(member_id, beacon_lit, profiles(username)))`
          )
          .eq('member_id', user.id);
 
@@ -29,8 +29,8 @@ async function getFriends(user) {
       const { data, error, status } = await supabase
          .from('connections')
          .select(
-            `user1: profiles!connections_user1_id_fkey(username, id),
-         user2: profiles!connections_user2_id_fkey(username, id)`
+            `user1: profiles!connections_user1_id_fkey(username, id, avatar_url),
+         user2: profiles!connections_user2_id_fkey(username, id, avatar_url)`
          )
          .or(`user1_id.eq.${user.id}, user2_id.eq.${user.id}`);
 
@@ -61,6 +61,27 @@ async function getFriendRequests(user) {
          .select(`sender, profiles(id, username)`)
          .eq('receiver', user.id)
          .eq('status', 'p');
+
+      if (error && status !== 406) {
+         throw error;
+      }
+
+      if (data) {
+         return data;
+      }
+   } catch (error) {
+      return { message: 'Error loading group data!', error: error };
+   }
+}
+
+async function getBeacons(user) {
+   try {
+      const { data, error, status } = await supabase
+         .from('group_members')
+         .select(
+            `beacon_lit, groups(group_name, id)`
+         )
+         .eq('member_id', user.id);
 
       if (error && status !== 406) {
          throw error;

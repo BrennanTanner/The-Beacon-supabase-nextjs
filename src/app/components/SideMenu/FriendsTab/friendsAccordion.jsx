@@ -15,7 +15,7 @@ import FriendCard from './friendCard';
 import { getFriends } from '@/services/dataFetchers';
 import TransitionsModal from '../../Modal/modal';
 
-export default function FriendAccordion({ user }) {
+export default function FriendAccordion({ user, onFindFriends }) {
    const [loading, setLoading] = useState(true);
    const [expanded, setExpanded] = useState(false);
    const [friends, setFriends] = useState([]);
@@ -26,9 +26,11 @@ export default function FriendAccordion({ user }) {
 
    const friendData = useCallback(async () => {
       setLoading(true);
-      setFriends(await getFriends(user));
+    const friendList = await getFriends(user);
+      setFriends(friendList);
+      onFindFriends(friendList);
       setLoading(false);
-   }, [user, getFriends]);
+   }, [user, getFriends, onFindFriends]);
 
    useEffect(() => {
       friendData();
