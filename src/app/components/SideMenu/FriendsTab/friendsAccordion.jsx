@@ -13,6 +13,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import FriendCard from './friendCard';
 import { getFriends } from '@/services/dataFetchers';
+import FriendForm from '../../Forms/friend-form'
 import TransitionsModal from '../../Modal/modal';
 
 export default function FriendAccordion({ user, onFindFriends }) {
@@ -52,7 +53,9 @@ export default function FriendAccordion({ user, onFindFriends }) {
             </Typography>
          </AccordionSummary>
          <AccordionDetails>
-         <TransitionsModal text={'Add Friend'} contents={'Hi'}/>
+
+         <TransitionsModal text={'Add Friend'} contents={<FriendForm session={user}/>}/>
+
             {friends.map((friend) => (
                <FriendCard friend={friend} key={friend.id} />
             ))}

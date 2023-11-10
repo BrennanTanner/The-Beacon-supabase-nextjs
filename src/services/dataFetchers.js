@@ -54,6 +54,27 @@ async function getFriends(user) {
    }
 }
 
+async function searchUsers(query) {
+   try {
+      console.log('here')
+      const { data, error, status } = await supabase
+         .from('profiles')
+         .select('id, username, full_name, avatar_url').or(`username.ilike.%${query}%,full_name.ilike.%${query}%`).limit(5);
+
+      if (error && status !== 406) {
+         throw error;
+      }
+
+      if (data) {
+         console.log(data);
+         return data;
+      }
+   } catch (error) {
+      console.log(error);
+      return { message: 'Error Searching!', error: error };
+   }
+}
+
 async function getFriendRequests(user) {
    try {
       const { data, error, status } = await supabase
@@ -116,6 +137,7 @@ async function getProfile(user) {
 module.exports = {
    getGroups,
    getFriends,
+   searchUsers,
    getFriendRequests,
    getBeacons,
    getProfile,
