@@ -1,21 +1,25 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Avatar, Box, Chip } from '@mui/material';
+import { Avatar, Box, Button, Chip, TextField } from '@mui/material';
 import { createGroup } from '@/services/dataSenders';
 
 export default function GroupForm({ session, friends }) {
-   const supabase = createClientComponentClient();
    const [loading, setLoading] = useState(true);
    const [groupName, setGroupName] = useState(null);
    const [members, setMembers] = useState([]);
-   const user = session?.user;
 
-   const  createNewGroup = async() => {
+   //needs testing
+   const createNewGroup = async () => {
       setLoading(true);
-      await createGroup(groupName, members, user);
+      await createGroup(groupName, members, session);
       setLoading(false);
    };
+
+   useEffect(() => {
+      friends.map((friend) => {
+         friend.disabled = false;
+      });
+   }, [friends]);
 
    const handleClick = (friend) => {
       friend.disabled = true;
@@ -28,18 +32,17 @@ export default function GroupForm({ session, friends }) {
       setMembers([...members]);
       member.disabled = false;
    };
-   console.log(members);
    return (
       <div className='form-widget'>
-         <div>
-            <label htmlFor='group-name'>Group Name</label>
-            <input
+            <TextField
                id='group-name'
-               type='text'
+               required
+               label='Group Name'
+               variant='outlined'
+               error={groupName != null && groupName === ''}
+               helperText='Group name cannot be empty'
                onChange={(e) => setGroupName(e.target.value)}
             />
-         </div>
-
          <div>
             <label htmlFor='members'>Add Members</label>
             {members.map((member) => {
@@ -76,6 +79,12 @@ export default function GroupForm({ session, friends }) {
                })}
             </Box>
          </div>
+         <Button
+            disabled={!loading || !members.length || !groupName}
+            onClick={createNewGroup}
+         >
+            Create Group
+         </Button>
       </div>
    );
 }

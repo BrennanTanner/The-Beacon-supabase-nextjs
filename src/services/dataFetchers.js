@@ -78,9 +78,7 @@ async function getBeacons(user) {
    try {
       const { data, error, status } = await supabase
          .from('group_members')
-         .select(
-            `beacon_lit, groups(group_name, id)`
-         )
+         .select(`beacon_lit, groups(group_name, id)`)
          .eq('member_id', user.id);
 
       if (error && status !== 406) {
@@ -95,6 +93,30 @@ async function getBeacons(user) {
    }
 }
 
+async function getProfile(user) {
+   try {
+      let { data, error, status } = await supabase
+         .from('profiles')
+         .select(`full_name, username, avatar_url`)
+         .eq('id', user?.id)
+         .single();
+
+      if (error && status !== 406) {
+         throw error;
+      }
+
+      if (data) {
+         return data;
+      }
+   } catch (error) {
+      console.info('Error loading user data!');
+   }
+}
+
 module.exports = {
-   getGroups, getFriends, getFriendRequests
+   getGroups,
+   getFriends,
+   getFriendRequests,
+   getBeacons,
+   getProfile,
 };

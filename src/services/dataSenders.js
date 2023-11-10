@@ -39,17 +39,19 @@ async function lightBeacon(id, beacon_lit) {
 async function createGroup(group_name, members, user) {
    //create group table
    try {
-      let { data, error } = await supabase.from('groups').upsert({
+     const { data, error } = await supabase.from('groups').upsert({
          group_name: group_name,
          created_at: new Date().toISOString(),
-      });
+      }).select();
 
       if (error) throw error;
+      console.info("200: group upserted");
+   
       //create member tables
       const groupMembers = [];
       members.map((member) => {
          groupMembers.push({
-            group_id: data.id,
+            group_id: data[0].id,
             admin: false,
             member_id: member.id,
             beacon_lit: false,
@@ -57,20 +59,24 @@ async function createGroup(group_name, members, user) {
       });
 
       groupMembers.push({
-         group_id: data.id,
+         group_id: data[0].id,
          admin: true,
          member_id: user.id,
          beacon_lit: false,
       });
 
+      console.log(groupMembers)
       try {
-         let { error } = await supabase
+         let { error2 } = await supabase
             .from('group_members')
-            .insert([groupMembers]);
-         if (error) throw error;
-      } catch {}
+            .insert(groupMembers);
+         if (error2) throw error2;
+         console.info("200: members added to group");
+      } catch (error2) {
+         console.info(error2);
+      }
    } catch (error) {
-      alert('Error sending request!');
+      console.info(error);
    }
 }
 
