@@ -37,7 +37,7 @@ export default function BeaconCarousel({ session }) {
          swipe={true}
       >
          {groups.map((group) => {
-            return <Beacon groupData={group}/>;
+            return <Beacon groupData={group} key={group.id}/>;
          })}
       </Carousel>
    );

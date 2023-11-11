@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=AR One Sans:700|Open Sans:400');
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     --text: #0c0e0e;
     --background: #ecefef;
@@ -71,4 +71,4 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-}
+} 

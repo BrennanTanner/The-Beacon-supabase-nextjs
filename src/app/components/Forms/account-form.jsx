@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
 import { getProfile } from '@/services/dataFetchers';
+import { updateProfile } from'@/services/dataSenders';
 
 export default function AccountForm({ session }) {
    const [loading, setLoading] = useState(true);
@@ -31,41 +32,6 @@ export default function AccountForm({ session }) {
    useEffect(() => {
       getUserProfile();
    }, [user, getProfile]);
-
-   async function updateProfile({ username, avatar_url }) {
-      try {
-         setLoading(true);
-
-         let { error } = await supabase.from('profiles').upsert({
-            id: user?.id,
-            full_name: fullname,
-            username,
-            avatar_url,
-            updated_at: new Date().toISOString(),
-         });
-         if (error) throw error;
-         alert('Profile updated!');
-      } catch (error) {
-         alert('Error updating the data!');
-      } finally {
-         setLoading(false);
-      }
-   }
-
-   //  useEffect(() => {
-   //     const authListener = supabase.auth.onAuthStateChange(
-   //        async (event, session) => {
-   //           const user = session?.user ?? null;
-   //           if (user) {
-   //              initializeOneSignal(user.id);
-   //           }
-   //        }
-   //     );
-
-   //     return () => {
-   //        authListener.data.subscription.unsubscribe();
-   //     };
-   //  }, []);
 
    return (
       <Box sx={{}}>
@@ -107,7 +73,7 @@ export default function AccountForm({ session }) {
             onChange={(e) => setUsername(e.target.value)}
          />
          <Button
-            onClick={() => updateProfile({ fullname, username, avatar_url })}
+            onClick={() => updateProfile( user.id, fullname, username, avatar_url )}
             disabled={loading}
          >
             {loading ? 'Loading ...' : 'Update'}

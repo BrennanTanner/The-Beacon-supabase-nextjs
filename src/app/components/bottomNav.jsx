@@ -13,7 +13,7 @@ import {
    useMediaQuery,
    SwipeableDrawer,
 } from '@mui/material';
-import MenuDrawer from './SideMenu/menuDrawer'
+import MenuDrawer from './SideMenu/menuDrawer';
 
 export default function BottomNav({ session }) {
    const [activeTab, setActiveTab] = useState('beacon');
@@ -33,8 +33,8 @@ export default function BottomNav({ session }) {
       ) {
          return;
       }
-      if (!open){
-        setActiveTab('beacon');
+      if (!open) {
+         setActiveTab('beacon');
       }
       setDrawerOpen({ ...drawerOpen, [anchor]: open });
    };
@@ -74,12 +74,7 @@ export default function BottomNav({ session }) {
                <BottomNavigationAction
                   label='My Account'
                   value='my Account'
-                  icon={
-                     <Avatar
-                        alt=''
-                        src={avatarUrl}
-                     />
-                  }
+                  icon={<Avatar alt='' src={avatarUrl} />}
                   onClick={toggleDrawer('right', true)}
                />
             </BottomNavigation>
@@ -89,7 +84,7 @@ export default function BottomNav({ session }) {
                onClose={toggleDrawer('right', false)}
                onOpen={toggleDrawer('right', true)}
             >
-              <FriendDrawer anchor={'right'}/>
+               <FriendDrawer anchor={'right'} />
             </SwipeableDrawer>
             <SwipeableDrawer
                anchor='left'
@@ -97,7 +92,7 @@ export default function BottomNav({ session }) {
                onClose={toggleDrawer('left', false)}
                onOpen={toggleDrawer('left', true)}
             >
-               <FriendDrawer anchor={'left'}/>
+               <FriendDrawer anchor={'left'} />
             </SwipeableDrawer>
          </Paper>
       );
