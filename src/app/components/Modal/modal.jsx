@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
+import PlusIcon from '@mui/icons-material/Add'
 
 const style = {
    position: 'absolute',
@@ -23,8 +24,9 @@ export default function TransitionsModal({ text, contents }) {
    const handleClose = () => setOpen(false);
 
    return (
-      <Box>
-         <Button onClick={handleOpen}>{text}</Button>
+      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+        
+         <Button startIcon={text=='Profile'?null:<PlusIcon />} onClick={handleOpen}>{text}</Button>
          <Modal
             aria-labelledby='transition-modal-title'
             aria-describedby='transition-modal-description'

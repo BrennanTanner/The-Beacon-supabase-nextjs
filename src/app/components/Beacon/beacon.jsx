@@ -19,7 +19,7 @@ export default function Beacon({ groupData }) {
          <Typography>
             {(beaconIsLit && 'the beacon is lit') || 'the beacon is not lit'}
          </Typography>
-         <Button onClick={qeueBeacon}>{(beaconIsLit && 'Put Out Beacon') || 'Light Beacon'}</Button>
+         <Button variant='contained' onClick={qeueBeacon}>{(beaconIsLit && 'Put Out Beacon') || 'Light Beacon'}</Button>
       </Box>
    );
 }

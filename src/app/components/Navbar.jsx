@@ -1,5 +1,5 @@
 'use client';
-import React, {useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
    AppBar,
    Box,
@@ -19,8 +19,7 @@ import MenuDrawer from './SideMenu/menuDrawer';
 import TransitionsModal from './Modal/modal';
 import AccountForm from './Forms/account-form';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import OneSignal from 'react-onesignal'
-
+import OneSignal from 'react-onesignal';
 
 export default function Navbar({ session }) {
    const supabase = createClientComponentClient();
@@ -50,27 +49,49 @@ export default function Navbar({ session }) {
          notifyButton: {
             enable: true,
          },
+         promptOptions: {
+            slidedown: {
+               prompts: [
+                  {
+                     type: 'smsAndEmail',
+                     autoPrompt: false,
+                     text: {
+                        acceptButton: 'Submit',
+                        cancelButton: 'No Thanks',
+                        actionMessage:
+                           'Subscribe so you know when The beacon is lit!',
+                        updateMessage:
+                           'Change your Notification Settings',
+                        confirmMessage: 'Thank You!',
+                        positiveUpdateButton: 'Save Preferences',
+                        negativeUpdateButton: 'Cancel',
+                     },
+                  },
+
+               ],
+            },
+         },
 
          allowLocalhostAsSecureOrigin: true,
       });
-
+      OneSignal.Slidedown.promptPush();
       await OneSignal.login(uid);
    };
 
-    useEffect(() => {
-       const authListener = supabase.auth.onAuthStateChange(
-          async (event, session) => {
-             const user = session?.user ?? null;
-             if (user) {
-                initializeOneSignal(session.user.id);
-             }
-          }
-       );
+   useEffect(() => {
+      const authListener = supabase.auth.onAuthStateChange(
+         async (event, session) => {
+            const user = session?.user ?? null;
+            if (user) {
+               initializeOneSignal(session.user.id);
+            }
+         }
+      );
 
-       return () => {
-          authListener.data.subscription.unsubscribe();
-       };
-    }, []);
+      return () => {
+         authListener.data.subscription.unsubscribe();
+      };
+   }, []);
 
    const toggleDrawer = (anchor, open) => (event) => {
       if (

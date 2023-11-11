@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Button, TextField, Box } from '@mui/material';
 import { getProfile } from '@/services/dataFetchers';
-import { updateProfile } from'@/services/dataSenders';
+import { updateProfile } from '@/services/dataSenders';
 
 export default function AccountForm({ session }) {
    const [loading, setLoading] = useState(true);
@@ -73,7 +73,10 @@ export default function AccountForm({ session }) {
             onChange={(e) => setUsername(e.target.value)}
          />
          <Button
-            onClick={() => updateProfile( user.id, fullname, username, avatar_url )}
+            variant='contained'
+            onClick={() =>
+               updateProfile(user.id, fullname, username, avatar_url)
+            }
             disabled={loading}
          >
             {loading ? 'Loading ...' : 'Update'}

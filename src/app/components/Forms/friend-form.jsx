@@ -35,7 +35,11 @@ export default function FriendForm({ session, friends }) {
             />
          </div>
 
-         <Button disabled={!loading || !users} onClick={newFriendRequest}>
+         <Button
+            variant='contained'
+            disabled={!loading || !users}
+            onClick={newFriendRequest}
+         >
             Send Friend Request
          </Button>
       </div>

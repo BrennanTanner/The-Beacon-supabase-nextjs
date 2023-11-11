@@ -21,7 +21,8 @@ export default function FriendReqAccordion({ user }) {
 
    const friendRequestData = useCallback(async () => {
       setLoading(true);
-      //setFriendRequests(await getFriendRequests(user));
+      const data = await getFriendRequests(user)
+      setFriendRequests(data);
       setLoading(false);
    }, [user, getFriendRequests]);
 
@@ -43,13 +44,11 @@ export default function FriendReqAccordion({ user }) {
             <Typography sx={{ width: '50%', flexShrink: 0 }}>
                Friend Requests
             </Typography>
-            {/* <Typography sx={{ color: 'text.secondary' }}>
-               I am an accordion
-            </Typography> */}
          </AccordionSummary>
          <AccordionDetails>
+
             {friendRequests.map((friendRequest) => (
-               <FriendReqCard friendRequest={friendRequest} key={friendRequest.id}/>
+               <FriendReqCard friendRequest={friendRequest} key={friendRequest.profiles.id}/>
             ))}
          </AccordionDetails>
       </Accordion>

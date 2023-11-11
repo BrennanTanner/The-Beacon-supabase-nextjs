@@ -80,6 +80,7 @@ export default function GroupForm({ session, friends }) {
             </Box>
          </div>
          <Button
+            variant='contained'
             disabled={!loading || !members.length || !groupName}
             onClick={createNewGroup}
          >
