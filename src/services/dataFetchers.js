@@ -59,7 +59,9 @@ async function searchUsers(query) {
       console.log('here')
       const { data, error, status } = await supabase
          .from('profiles')
-         .select('id, username, full_name, avatar_url').or(`username.ilike.%${query}%,full_name.ilike.%${query}%`).limit(5);
+         .select('id, username, full_name, avatar_url').textSearch('username', query, {
+            config: 'english'
+          }).limit(5);
 
       if (error && status !== 406) {
          throw error;

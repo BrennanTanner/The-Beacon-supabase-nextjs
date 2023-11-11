@@ -34,15 +34,15 @@ export default function GroupForm({ session, friends }) {
    };
    return (
       <div className='form-widget'>
-            <TextField
-               id='group-name'
-               required
-               label='Group Name'
-               variant='outlined'
-               error={groupName != null && groupName === ''}
-               helperText='Group name cannot be empty'
-               onChange={(e) => setGroupName(e.target.value)}
-            />
+         <TextField
+            id='group-name'
+            required
+            label='Group Name'
+            variant='outlined'
+            error={groupName != null && groupName === ''}
+            helperText='Group name cannot be empty'
+            onChange={(e) => setGroupName(e.target.value)}
+         />
          <div>
             <label htmlFor='members'>Add Members</label>
             {members.map((member) => {

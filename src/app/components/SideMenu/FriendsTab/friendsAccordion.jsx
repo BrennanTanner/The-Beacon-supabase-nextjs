@@ -54,7 +54,7 @@ export default function FriendAccordion({ user, onFindFriends }) {
          </AccordionSummary>
          <AccordionDetails>
 
-         <TransitionsModal text={'Add Friend'} contents={<FriendForm session={user}/>}/>
+         <TransitionsModal text={'Add Friend'} contents={<FriendForm session={user} friends={friends}/>}/>
 
             {friends.map((friend) => (
                <FriendCard friend={friend} key={friend.id} />
