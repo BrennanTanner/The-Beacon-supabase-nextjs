@@ -5,6 +5,10 @@ import Carousel from 'react-material-ui-carousel';
 import { getGroups } from '@/services/dataFetchers';
 import { lightBeacon } from '@/services/dataSenders';
 import Beacon from './beacon';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { themeOptions } from '@/app/styles/mui-theme';
+
+const theme = createTheme(themeOptions);
 
 export default function BeaconCarousel({ session }) {
    const [loading, setLoading] = useState(true);
@@ -27,18 +31,20 @@ export default function BeaconCarousel({ session }) {
    }, []);
 
    return (
-      <Carousel
-         height={'100vh'}
-         autoPlay={false}
-         animation={'slide'}
-         navButtonsAlwaysVisible={true}
-         indicators={true}
-         cycleNavigation={true}
-         swipe={true}
-      >
-         {groups.map((group) => {
-            return <Beacon groupData={group} key={group.id}/>;
-         })}
-      </Carousel>
+      <ThemeProvider theme={theme}>
+         <Carousel
+            height={'100vh'}
+            autoPlay={false}
+            animation={'slide'}
+            navButtonsAlwaysVisible={true}
+            indicators={true}
+            cycleNavigation={true}
+            swipe={true}
+         >
+            {groups.map((group) => {
+               return <Beacon groupData={group} key={group.id} />;
+            })}
+         </Carousel>
+      </ThemeProvider>
    );
 }

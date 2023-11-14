@@ -35,6 +35,19 @@ async function createFriendRequest(senderId, recieverId) {
    }
 }
 
+async function updateFriendRequest(requestId, update) {
+   try {
+      let { error } = await supabase.from('connection_requests').update({
+         status: update,
+      }).eq('specifier_id', requestId);
+
+      if (error) throw error;
+      alert('request updated!');
+   } catch (error) {
+      alert('Error sending request!');
+   }
+}
+
 async function lightBeacon(id, beacon_lit) {
    try {
       const setBeacon = beacon_lit ? 'FALSE' : 'TRUE';
@@ -85,7 +98,6 @@ async function createGroup(group_name, members, user) {
          beacon_lit: false,
       });
 
-      console.log(groupMembers);
       try {
          let { error2 } = await supabase
             .from('group_members')
@@ -105,4 +117,5 @@ module.exports = {
    createGroup,
    lightBeacon,
    updateProfile,
+   updateFriendRequest,
 };

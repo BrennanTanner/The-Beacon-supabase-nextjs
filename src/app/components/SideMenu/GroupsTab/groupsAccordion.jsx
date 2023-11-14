@@ -46,7 +46,7 @@ export default function GroupAccordion({ user, friends }) {
             aria-controls='panel1bh-content'
             id='panel1bh-header'
          >
-            <Typography sx={{ width: '50%', flexShrink: 0 }}>Groups</Typography>
+            <Typography variant='h4' sx={{ flexShrink: 0 }}>Beacons</Typography>
          </AccordionSummary>
          <AccordionDetails>
 
@@ -55,17 +55,6 @@ export default function GroupAccordion({ user, friends }) {
             {groups.map((group) => (
                <GroupCard group={group.groups} key={group.groups.id} />
             ))}
-
-            {/* <Card sx={{ maxWidth: 345 }}>
-               <CardActionArea sx={{ display: 'flex' }}>
-                  <AddIcon />
-                  <CardContent>
-                     <Typography gutterBottom variant='h5' component='div'>
-                        create group
-                     </Typography>
-                  </CardContent>
-               </CardActionArea>
-            </Card> */}
 
          </AccordionDetails>
       </Accordion>

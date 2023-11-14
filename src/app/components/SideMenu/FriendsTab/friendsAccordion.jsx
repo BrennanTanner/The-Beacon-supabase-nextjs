@@ -48,7 +48,7 @@ export default function FriendAccordion({ user, onFindFriends }) {
             aria-controls='panel1bh-content'
             id='panel1bh-header'
          >
-            <Typography sx={{ width: '50%', flexShrink: 0 }}>
+            <Typography variant='h4' sx={{ flexShrink: 0 }}>
                Friends
             </Typography>
          </AccordionSummary>

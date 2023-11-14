@@ -20,6 +20,10 @@ import TransitionsModal from './Modal/modal';
 import AccountForm from './Forms/account-form';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import OneSignal from 'react-onesignal';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {themeOptions} from '../styles/mui-theme';
+
+const theme = createTheme(themeOptions);
 
 export default function Navbar({ session }) {
    const supabase = createClientComponentClient();
@@ -112,8 +116,8 @@ export default function Navbar({ session }) {
       setAnchorElUser(null);
    };
 
-   //   if (!mobile) {
    return (
+      <ThemeProvider theme={theme}>
       <AppBar position='static'>
          <Container maxWidth='xl'>
             <Toolbar disableGutters>
@@ -130,20 +134,8 @@ export default function Navbar({ session }) {
                   </IconButton>
                </Box>
                <Typography
-                  variant='h5'
+                  variant='h3'
                   noWrap
-                  component='a'
-                  href='#app-bar-with-responsive-menu'
-                  sx={{
-                     mr: 2,
-                     display: { xs: 'flex', md: 'flex' },
-                     flexGrow: 1,
-                     fontFamily: 'monospace',
-                     fontWeight: 700,
-                     letterSpacing: '.3rem',
-                     color: 'inherit',
-                     textDecoration: 'none',
-                  }}
                >
                   The Beacon
                </Typography>
@@ -206,6 +198,6 @@ export default function Navbar({ session }) {
             <MenuDrawer session={userSession} />
          </SwipeableDrawer>
       </AppBar>
+      </ThemeProvider>
    );
-   //}
 }

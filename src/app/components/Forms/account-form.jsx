@@ -44,7 +44,6 @@ export default function AccountForm({ session }) {
          />
          <TextField
             id='avatarUrl'
-            required
             label='Avatar URL'
             variant='outlined'
             error={avatar_url != null && avatar_url === ''}
@@ -77,7 +76,7 @@ export default function AccountForm({ session }) {
             onClick={() =>
                updateProfile(user.id, fullname, username, avatar_url)
             }
-            disabled={loading}
+            disabled={loading || !username || !fullname}
          >
             {loading ? 'Loading ...' : 'Update'}
          </Button>

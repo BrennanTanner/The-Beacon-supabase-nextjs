@@ -6,16 +6,16 @@ import { CardActionArea } from '@mui/material';
 import FireIcon from '@mui/icons-material/LocalFireDepartment';
 
 export default function GroupCard(group) {
-  return (
-    <Card sx={{ maxWidth: 345 }} >
-      <CardActionArea sx={{display: "flex"}}>
-      <FireIcon/>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {group.group.group_name}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  );
+   return (
+      <Card sx={{ maxWidth: 345 }}>
+         <CardActionArea sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+            <FireIcon />
+            <CardContent>
+               <Typography gutterBottom variant='h5' component='div'>
+                  {group.group.group_name}
+               </Typography>
+            </CardContent>
+         </CardActionArea>
+      </Card>
+   );
 }

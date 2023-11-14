@@ -81,7 +81,7 @@ async function getFriendRequests(user) {
    try {
       const { data, error, status } = await supabase
          .from('connection_requests')
-         .select(`sender, profiles!connection_requests_sender_fkey(id, username, full_name, avatar_url)`)
+         .select(`sender, specifier_id,profiles!connection_requests_sender_fkey(id, username, full_name, avatar_url)`)
          .eq('receiver', user.id)
          .eq('status', 'p');
 
