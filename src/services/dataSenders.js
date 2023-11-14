@@ -2,7 +2,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 const supabase = createClientComponentClient();
 
-async function updateProfile( id, full_name, username, avatar_url ) {
+async function updateProfile(id, full_name, username, avatar_url) {
    try {
       let { error } = await supabase.from('profiles').upsert({
          id,
@@ -37,9 +37,12 @@ async function createFriendRequest(senderId, recieverId) {
 
 async function updateFriendRequest(requestId, update) {
    try {
-      let { error } = await supabase.from('connection_requests').update({
-         status: update,
-      }).eq('specifier_id', requestId);
+      let { error } = await supabase
+         .from('connection_requests')
+         .update({
+            status: update,
+         })
+         .eq('specifier_id', requestId);
 
       if (error) throw error;
       alert('request updated!');
@@ -60,9 +63,11 @@ async function lightBeacon(id, beacon_lit) {
 
       if (error) throw error;
       alert('Beacon has been Lit!');
+      return true;
    } catch (error) {
       console.log(error);
       alert('Error lighting Beacon!');
+      return false;
    }
 }
 

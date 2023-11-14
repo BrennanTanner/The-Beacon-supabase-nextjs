@@ -8,10 +8,10 @@ export default function Beacon({ groupData }) {
    const [loading, setLoading] = useState(true);
    const [beaconIsLit, setBeaconIsLit] = useState(groupData.beacon_lit);
 
-   const qeueBeacon = useCallback(() => {
+   const qeueBeacon = useCallback( async() => {
       setLoading(true);
-      lightBeacon(groupData.id, beaconIsLit);
-      setBeaconIsLit(!groupData.beacon_lit);
+      const success = await lightBeacon(groupData.id, beaconIsLit);
+      if(success){setBeaconIsLit(!groupData.beacon_lit);}
       setLoading(false);
    }, [groupData]);
 
