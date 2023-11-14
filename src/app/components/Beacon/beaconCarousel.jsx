@@ -40,9 +40,10 @@ export default function BeaconCarousel({ session }) {
             indicators={true}
             cycleNavigation={true}
             swipe={true}
+            sx={{height: "90vh",}}
          >
             {groups.map((group) => {
-               return <Beacon groupData={group} key={group.id} />;
+               return <Beacon groupData={group} key={group.id}/>;
             })}
          </Carousel>
       </ThemeProvider>

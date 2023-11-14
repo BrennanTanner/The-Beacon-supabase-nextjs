@@ -75,6 +75,9 @@ export default function Search({ setUsers, friends, session }) {
          <AsyncSelect
             cacheOptions
             components={{ Option: SelectMenuButton, animatedComponents }}
+            placeholder={'Search...'}
+            className="react-select-container"
+            classNamePrefix="react-select"
             getOptionLabel={(e) => e.username}
             getOptionValue={(e) => e.id}
             loadOptions={loadOptions}

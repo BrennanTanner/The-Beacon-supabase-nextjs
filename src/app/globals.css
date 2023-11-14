@@ -80,3 +80,40 @@ a {
   color: inherit;
   text-decoration: none;
 } 
+
+.react-select-container {
+  .react-select__control {
+    background-color: var(--secondary);
+    border-color: var(--border-color);
+    transition: none;
+
+    &:hover {
+      border-color: var(--border-color);
+    }
+  }
+
+  .react-select__menu {
+    background-color: var(--secondary);
+    border: 1px solid var(--border-color);
+  }
+
+  .react-select__option {
+    background-color: var(--secondary);
+
+    &:hover {
+      background-color: var(--primary);
+    }
+  }
+
+  .react-select__indicator-separator {
+    background-color: var(--border-color);
+  }
+
+  .react-select__placeholder,
+  .react-select__single-value {
+    color: var(--text);
+  }
+  .react-select__input{
+    color: var(--text);
+  }
+}
