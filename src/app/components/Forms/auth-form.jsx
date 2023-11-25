@@ -8,7 +8,7 @@ export default function AuthForm() {
    const supabase = createClientComponentClient();
 
    return (
-      <Box sx={{margin: '20px', padding: '10px'}}>
+      <Box sx={{margin: 'auto', padding: '10px', width: { xs: '90%', md: '33%' }, }}>
          <Typography variant='h3'>Login</Typography>
       <Auth
          supabaseClient={supabase}

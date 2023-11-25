@@ -1,4 +1,4 @@
-import AuthForm from './components/auth-form';
+import AuthForm from './components/Forms/auth-form';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import Navbar from './components/Navbar';

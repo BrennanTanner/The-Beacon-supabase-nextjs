@@ -19,9 +19,9 @@ import MenuDrawer from './SideMenu/menuDrawer';
 import TransitionsModal from './Modal/modal';
 import AccountForm from './Forms/account-form';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import OneSignal from 'react-onesignal';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {themeOptions} from '../styles/mui-theme';
+import {checkNotifications} from '@/services/pushManager'
 
 const theme = createTheme(themeOptions);
 
@@ -35,67 +35,9 @@ export default function Navbar({ session }) {
       right: false,
    });
 
-   const oneSignalAppId = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID;
-
-   const [oneSignalInitialized, setOneSignalInitialized] = useState(false);
-
-   /**
-    * Initializes OneSignal SDK for a given Supabase User ID
-    * @param uid Supabase User ID
-    */
-   const initializeOneSignal = async (uid) => {
-      if (oneSignalInitialized) {
-         return;
-      }
-      setOneSignalInitialized(true);
-      await OneSignal.init({
-         appId: oneSignalAppId,
-         notifyButton: {
-            enable: true,
-         },
-         promptOptions: {
-            slidedown: {
-               prompts: [
-                  {
-                     type: 'smsAndEmail',
-                     autoPrompt: false,
-                     text: {
-                        acceptButton: 'Submit',
-                        cancelButton: 'No Thanks',
-                        actionMessage:
-                           'Subscribe so you know when The beacon is lit!',
-                        updateMessage:
-                           'Change your Notification Settings',
-                        confirmMessage: 'Thank You!',
-                        positiveUpdateButton: 'Save Preferences',
-                        negativeUpdateButton: 'Cancel',
-                     },
-                  },
-
-               ],
-            },
-         },
-
-         allowLocalhostAsSecureOrigin: true,
-      });
-      OneSignal.Slidedown.promptPush();
-      await OneSignal.login(uid);
-   };
-
-   useEffect(() => {
-      const authListener = supabase.auth.onAuthStateChange(
-         async (event, session) => {
-            const user = session?.user ?? null;
-            if (user) {
-               initializeOneSignal(session.user.id);
-            }
-         }
-      );
-
-      return () => {
-         authListener.data.subscription.unsubscribe();
-      };
-   }, []);
+   useEffect(()=>{
+      checkNotifications();
+   });
 
    const toggleDrawer = (anchor, open) => (event) => {
       if (
