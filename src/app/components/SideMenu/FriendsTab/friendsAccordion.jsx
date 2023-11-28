@@ -13,7 +13,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
 import FriendCard from './friendCard';
 import { getFriends } from '@/services/dataFetchers';
-import FriendForm from '../../Forms/friend-form'
+import FriendForm from '../../Forms/friend-form';
 import TransitionsModal from '../../Modal/modal';
 
 export default function FriendAccordion({ user, onFindFriends }) {
@@ -27,7 +27,7 @@ export default function FriendAccordion({ user, onFindFriends }) {
 
    const friendData = useCallback(async () => {
       setLoading(true);
-    const friendList = await getFriends(user);
+      const friendList = await getFriends(user);
       setFriends(friendList);
       onFindFriends(friendList);
       setLoading(false);
@@ -53,8 +53,10 @@ export default function FriendAccordion({ user, onFindFriends }) {
             </Typography>
          </AccordionSummary>
          <AccordionDetails>
-
-         <TransitionsModal text={'Add Friend'} contents={<FriendForm session={user} friends={friends}/>}/>
+            <TransitionsModal
+               text={'Add Friend'}
+               contents={<FriendForm session={user} friends={friends} />}
+            />
 
             {friends.map((friend) => (
                <FriendCard friend={friend} key={friend.id} />

@@ -120,6 +120,13 @@ a {
   
 }
 
+.card-buttons button{
+margin-right: 10px;
+}
+
+
+
+
 /* Fire Animation */
 .fire {
   font-size: 24px;

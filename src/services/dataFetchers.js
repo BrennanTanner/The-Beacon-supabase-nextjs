@@ -56,12 +56,14 @@ async function getFriends(user) {
 
 async function searchUsers(query) {
    try {
-      console.log('here')
+      console.log('here');
       const { data, error, status } = await supabase
          .from('profiles')
-         .select('id, username, full_name, avatar_url').textSearch('username', query, {
-            config: 'english'
-          }).limit(5);
+         .select('id, username, full_name, avatar_url')
+         .textSearch('username', query, {
+            config: 'english',
+         })
+         .limit(5);
 
       if (error && status !== 406) {
          throw error;
@@ -81,8 +83,9 @@ async function getFriendRequests(user) {
    try {
       const { data, error, status } = await supabase
          .from('connection_requests')
-         .select(`sender, specifier_id,profiles!connection_requests_sender_fkey(id, username, full_name, avatar_url)`)
-         .eq('receiver', user.id)
+         .select(
+            `sender, receiver, specifier_id,sender_profile:profiles!connection_requests_sender_fkey(id, username, full_name, avatar_url), receiver_profile:profiles!connection_requests_receiver_fkey(id, username, full_name, avatar_url)`
+         )
          .eq('status', 'p');
 
       if (error && status !== 406) {
@@ -93,7 +96,10 @@ async function getFriendRequests(user) {
          return data;
       }
    } catch (error) {
-      console.info({ message: 'Error loading friend request data!', error: error });
+      console.info({
+         message: 'Error loading friend request data!',
+         error: error,
+      });
    }
 }
 

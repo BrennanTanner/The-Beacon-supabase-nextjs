@@ -48,7 +48,7 @@ export default function FriendReqAccordion({ user }) {
          <AccordionDetails>
 
             {friendRequests.map((friendRequest) => (
-               <FriendReqCard friendRequest={friendRequest} key={friendRequest.profiles.id}/>
+               <FriendReqCard friendRequest={friendRequest} user={user} key={friendRequest.specifier_id}/>
             ))}
          </AccordionDetails>
       </Accordion>

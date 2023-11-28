@@ -21,7 +21,7 @@ async function updateProfile(id, full_name, username, avatar_url) {
 
 async function createFriendRequest(senderId, recieverId) {
    try {
-      let { error } = await supabase.from('connection_requests').upsert({
+      let { error } = await supabase.from('connection_requests').insert({
          sender: senderId,
          receiver: recieverId,
          created_at: new Date().toISOString(),

@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
    ).username;
 
    const results = data.subscriptions.map((subscription) => {
-      if (subscription.profile && subscription.profile != 'null') {
+      if (subscription.profile && subscription.profile != 'null' && !subscription.sender) {
          const endpoint = subscription.profile.endpoint;
          const id = endpoint.substr(endpoint.length - 8, endpoint.length);
 

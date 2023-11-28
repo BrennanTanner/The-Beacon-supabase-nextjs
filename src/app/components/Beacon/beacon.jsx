@@ -3,7 +3,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { lightBeacon } from '@/services/dataSenders';
 import Fire from './fire';
-import FireIcon from '@mui/icons-material/LocalFireDepartment';
+
 
 export default function Beacon({ groupData }) {
    const [loading, setLoading] = useState(true);
@@ -13,9 +13,11 @@ export default function Beacon({ groupData }) {
    const qeueBeacon = useCallback(async () => {
       setLoading(true);
       const success = await lightBeacon(groupData.id, beaconIsLit);
+
       if (success) {
-         setBeaconIsLit(!groupData.beacon_lit);
+         setBeaconIsLit(!beaconIsLit);
       }
+      
       setLoading(false);
    }, [groupData]);
 
@@ -40,7 +42,7 @@ export default function Beacon({ groupData }) {
          >
             {beaconIsLit && <Fire />}
 
-            <img src='/Pyre.svg' alt='' style={{ width: '300px' }} />
+            <img src='/Pyre.svg' alt='' style={{ width: '80%' }} />
             <Typography variant='h4'>{groupData.groups.group_name}</Typography>
             <Typography>
                {(beaconIsLit && 'the beacon is lit') || 'the beacon is not lit'}

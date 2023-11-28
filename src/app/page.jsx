@@ -10,10 +10,10 @@ export default async function Home() {
    const {
       data: { session },
    } = await supabase.auth.getSession();
-   
+
    if (session) {
       return (
-         <main style={{backgroundImage: 'url("/space-w-alpha.png")'}}>
+         <main style={{ backgroundImage: 'url("/space-w-alpha.png")' }}>
             <Navbar session={session} />
             <BeaconCarousel session={session} />
          </main>
