@@ -13,27 +13,24 @@ export async function POST(request: NextRequest) {
       process.env.NEXT_PUBLIC_VAPID_PRIVATE_KEY
    );
 
-   const notification = JSON.stringify({
-      text: "hi",
-      title: "Hello, Notifications!",
-      options: {
-        body: `ID: ${Math.floor(Math.random() * 100)}`
+   const notification = data.subscriptions.forEach((subscription) => {
+      if (subscription.sender == true) {
+         console.log(subscription)
+         return subscription.profile.username;
       }
-    });
- 
+   });
+
    //console.log(data.subscriptions);
    //const results = { success: [], fail: [] }
    const results = data.subscriptions.map((subscription) => {
-      console.log(subscription)
-      if (subscription.profile && subscription.profile != 'null' ) {
+      console.log(subscription);
+      if (subscription.profile && subscription.profile != 'null') {
          const endpoint = subscription.profile.endpoint;
          const id = endpoint.substr(endpoint.length - 8, endpoint.length);
 
          webpush
             .sendNotification(subscription.profile, notification)
             .then(async (result) => {
-
-               
                //results.success.push({ id: id, result: result });
                return result.status;
             })
@@ -41,7 +38,7 @@ export async function POST(request: NextRequest) {
                //results.fail.push({ id: id, result: error });
                return error;
             });
-            return '201';
+         return '201';
       } else {
          return '404';
       }

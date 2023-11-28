@@ -8,9 +8,9 @@ self.addEventListener('install', () => {
 
 self.addEventListener('push', function(event) {
 	console.log('Push message received.');
-	let notificationTitle = 'Hello';
+	let notificationTitle = 'A beacon was lit!';
 	const notificationOptions = {
-		body: 'Thanks for sending this push msg.',
+		body:  'Someone has lit their beacon!',
 		icon: './Beacon.png',
 		badge: './Beacon.png',
 		data: {
