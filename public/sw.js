@@ -1,29 +1,45 @@
-// Show notification when received
-self.addEventListener('push', (event) => {
-   /**
-    Assuming the payload string is a valid JSON and can be parsed and contains a minimum of valid
-    fields... possible fields can be:
-    title: String,
-    body: String,
-    icon: String,
-    badge: String,
-    image: String,
-    vibrate: Array,
-    sound: String,
-    dir: String,
-    tag: String,
-    requireInteraction: Boolean,
-    renotify: Boolean,
-    silent: Boolean,
-    timestamp: Date
-  */
-   let data = event.data;
+'use strict';
 
-   console.log(data);
-   // show
-   self.registration
-      .showNotification(data.title, data.body)
-      .catch((error) => {
-         console.log(error);
-      });
+/* eslint-env browser, serviceworker */
+
+self.addEventListener('install', () => {
+	self.skipWaiting();
+});
+
+self.addEventListener('push', function(event) {
+	console.log('Push message received.');
+	let notificationTitle = 'Hello';
+	const notificationOptions = {
+		body: 'Thanks for sending this push msg.',
+		icon: './Beacon.png',
+		badge: './Beacon.png',
+		data: {
+			url: 'https://www.lightthebeacon.app',
+		},
+	};
+
+	if (event.data) {
+		const dataText = event.data.text();
+		notificationTitle = 'A beacon was lit!';
+		notificationOptions.body = `${dataText} has lit their beacon!`;
+	}
+
+	event.waitUntil(
+		self.registration.showNotification(
+			notificationTitle,
+			notificationOptions,
+		),
+	);
+});
+
+self.addEventListener('notificationclick', function(event) {
+	console.log('Notification clicked.');
+	event.notification.close();
+
+	let clickResponsePromise = Promise.resolve();
+	if (event.notification.data && event.notification.data.url) {
+		clickResponsePromise = clients.openWindow(event.notification.data.url);
+	}
+
+	event.waitUntil(clickResponsePromise);
 });

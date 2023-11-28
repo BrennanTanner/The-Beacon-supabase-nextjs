@@ -14,21 +14,23 @@ export async function POST(request: NextRequest) {
    );
 
    const notification = JSON.stringify({
-      title: 'Hello, Notifications!',
+      text: "hi",
+      title: "Hello, Notifications!",
       options: {
-         body: `ID: 100`,
-      },
-   });
-
+        body: `ID: ${Math.floor(Math.random() * 100)}`
+      }
+    });
+ 
    //console.log(data.subscriptions);
    //const results = { success: [], fail: [] }
    const results = data.subscriptions.map((subscription) => {
-      if (subscription && subscription != 'null') {
-         const endpoint = subscription.endpoint;
+      console.log(subscription)
+      if (subscription.profile && subscription.profile != 'null' ) {
+         const endpoint = subscription.profile.endpoint;
          const id = endpoint.substr(endpoint.length - 8, endpoint.length);
 
          webpush
-            .sendNotification(subscription, notification)
+            .sendNotification(subscription.profile, notification)
             .then(async (result) => {
 
                
