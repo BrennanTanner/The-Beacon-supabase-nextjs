@@ -4,10 +4,10 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 const supabase = createClientComponentClient();
 
-// TODO: need to insert endpoint into database after service worker is created 
+// TODO: need to insert endpoint into database after service worker is created
 async function checkNotifications() {
    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      if (Notification.permission) {
+      if (Notification.permission != 'granted') {
          //
          if (requestPushNotification()) {
             // Register the service worker.
@@ -16,21 +16,34 @@ async function checkNotifications() {
             navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
                const options = {
                   userVisibleOnly: true,
-                  applicationServerKey: urlB64ToUint8Array(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY),
+                  // applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+                  applicationServerKey: urlB64ToUint8Array(
+                     process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
+                  ),
                };
                serviceWorkerRegistration.pushManager.subscribe(options).then(
                   async (pushSubscription) => {
-                    
-                     const { data: { user } } = await supabase.auth.getUser()
-                    
+
+                     const pushData = pushSubscription.toJSON();
+                     const {
+                        data: { user },
+                     } = await supabase.auth.getUser();
+
                      try {
-                        let { error } = await supabase.from('notification_subscription').insert({
-                           endpoint: pushSubscription.endpoint,
-                           user_id: user.id,
-                        });
-                  
+                        let { error } = await supabase
+                           .from('notification_subscription')
+                           .upsert({
+                              user_id: user.id,
+                              endpoint: pushData.endpoint,
+                              keys: {
+                                 auth: pushData.keys.auth,
+                                 p256dh: pushData.keys.p256dh,
+                              },
+                              expiration_time: pushData.expirationTime,
+                           }, { onConflict: 'user_id' });
+
                         if (error) throw error;
-                        alert('request sent!');
+                        alert('Notifications Enabled!');
                      } catch (error) {
                         console.log(error);
                         //alert('Error sending request!');
@@ -113,17 +126,17 @@ async function createPushNotification() {
 // Convert a base64 string to Uint8Array.
 // Must do this so the server can understand the VAPID_PUBLIC_KEY.
 const urlB64ToUint8Array = (base64String) => {
-   const padding = '='.repeat((4 - base64String.length % 4) % 4);
+   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
    const base64 = (base64String + padding)
-     .replace(/\-/g, '+')
-     .replace(/_/g, '/');
+      .replace(/\-/g, '+')
+      .replace(/_/g, '/');
    const rawData = window.atob(base64);
    const outputArray = new Uint8Array(rawData.length);
    for (let i = 0; i < rawData.length; ++i) {
-     outputArray[i] = rawData.charCodeAt(i);
+      outputArray[i] = rawData.charCodeAt(i);
    }
-   return outputArray; 
- };
+   return outputArray;
+};
 
 module.exports = {
    checkNotifications,
