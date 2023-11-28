@@ -13,17 +13,11 @@ export async function POST(request: NextRequest) {
       process.env.NEXT_PUBLIC_VAPID_PRIVATE_KEY
    );
 
-   const notification = data.subscriptions.forEach((subscription) => {
-      if (subscription.sender == true) {
-         console.log(subscription)
-         return subscription.profile.username;
-      }
-   });
+   const notification = data.subscriptions.find(
+      (subscription) => subscription.sender == true
+   ).username;
 
-   //console.log(data.subscriptions);
-   //const results = { success: [], fail: [] }
    const results = data.subscriptions.map((subscription) => {
-      console.log(subscription);
       if (subscription.profile && subscription.profile != 'null') {
          const endpoint = subscription.profile.endpoint;
          const id = endpoint.substr(endpoint.length - 8, endpoint.length);
