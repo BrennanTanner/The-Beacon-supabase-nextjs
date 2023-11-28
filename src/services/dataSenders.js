@@ -62,7 +62,12 @@ async function lightBeacon(id, beacon_lit) {
          .eq('id', id);
 
       if (error) throw error;
-      alert('Beacon has been Lit!');
+      if (beacon_lit) {
+         alert('Beacon has been put out');
+      } else {
+         alert('Beacon has been Lit!');
+      }
+
       return true;
    } catch (error) {
       console.log(error);

@@ -101,7 +101,7 @@ async function getBeacons(user) {
    try {
       const { data, error, status } = await supabase
          .from('group_members')
-         .select(`beacon_lit, groups(group_name, id)`)
+         .select(`beacon_lit, beacon_changed, groups(group_name, id)`)
          .eq('member_id', user.id);
 
       if (error && status !== 406) {

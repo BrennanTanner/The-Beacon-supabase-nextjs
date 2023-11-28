@@ -2,16 +2,20 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { lightBeacon } from '@/services/dataSenders';
+import Fire from './fire';
 import FireIcon from '@mui/icons-material/LocalFireDepartment';
 
 export default function Beacon({ groupData }) {
    const [loading, setLoading] = useState(true);
    const [beaconIsLit, setBeaconIsLit] = useState(groupData.beacon_lit);
+   const [beaconTimer, setBeaconTimer] = useState(groupData.beacon_changed);
 
-   const qeueBeacon = useCallback( async() => {
+   const qeueBeacon = useCallback(async () => {
       setLoading(true);
       const success = await lightBeacon(groupData.id, beaconIsLit);
-      if(success){setBeaconIsLit(!groupData.beacon_lit);}
+      if (success) {
+         setBeaconIsLit(!groupData.beacon_lit);
+      }
       setLoading(false);
    }, [groupData]);
 
@@ -20,6 +24,11 @@ export default function Beacon({ groupData }) {
          <Box
             sx={{
                width: '50%',
+               height: '500px',
+               display: 'flex',
+               flexDirection: 'column',
+               justifyContent: 'flex-end',
+               alignItems: 'center',
                padding: '10px',
                margin: 'auto',
                textAlign: 'center',
@@ -29,14 +38,9 @@ export default function Beacon({ groupData }) {
                border: '1px solid rgba(255, 255, 255, 0.125)',
             }}
          >
-            {beaconIsLit && (
-               <FireIcon
-                  sx={{
-                     width: '100px',
-                     height: '100px'
-                  }}
-               />
-            )}
+            {beaconIsLit && <Fire />}
+
+            <img src='/Pyre.svg' alt='' style={{ width: '300px' }} />
             <Typography variant='h4'>{groupData.groups.group_name}</Typography>
             <Typography>
                {(beaconIsLit && 'the beacon is lit') || 'the beacon is not lit'}
