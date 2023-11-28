@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
       },
    });
 
+   console.log(data.subscriptions);
    const results = data.subscriptions.forEach(async (subscription) => {
       const endpoint = subscription.endpoint;
       const id = endpoint.substr(endpoint.length - 8, endpoint.length);
