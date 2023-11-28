@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
 
    //needs to just take array of endpoints and distribute notifications to each
 
-   webpush.setVapidDetails('mailto:test@test.test', process.env.NEXT_PUBLIC_VAPID_PRIVATE_KEY, process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY);
+   webpush.setVapidDetails('mailto:test@test.test', process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY, process.env.NEXT_PUBLIC_VAPID_PRIVATE_KEY);
 
    const notification = JSON.stringify({
       title: 'Hello, Notifications!',
