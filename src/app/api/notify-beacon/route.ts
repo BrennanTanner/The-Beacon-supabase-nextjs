@@ -20,45 +20,37 @@ export async function POST(request: NextRequest) {
       },
    });
 
-   return NextResponse.json(
-         {
-            data
-         },
-         {
-            status: 201,
-         }
-   );
    //console.log(data.subscriptions);
    //const results = { success: [], fail: [] }
-   
-   // const results = data.subscriptions.map((subscription) => {
-   //    if (subscription && subscription != 'null') {
-   //       const endpoint = subscription.endpoint;
-   //       const id = endpoint.substr(endpoint.length - 8, endpoint.length);
-   //       webpush
-   //          .sendNotification(subscription, notification)
-   //          .then(async (result) => {
+   const results = data.subscriptions.map((subscription) => {
+      if (subscription && subscription != 'null') {
+         const endpoint = subscription.endpoint;
+         const id = endpoint.substr(endpoint.length - 8, endpoint.length);
+
+         webpush
+            .sendNotification(subscription, notification)
+            .then(async (result) => {
 
                
-   //             //results.success.push({ id: id, result: result });
-   //             return result.status;
-   //          })
-   //          .catch((error) => {
-   //             //results.fail.push({ id: id, result: error });
-   //             return error;
-   //          });
-   //          return '201';
-   //    } else {
-   //       return '404';
-   //    }
-   // });
+               //results.success.push({ id: id, result: result });
+               return result.status;
+            })
+            .catch((error) => {
+               //results.fail.push({ id: id, result: error });
+               return error;
+            });
+            return '201';
+      } else {
+         return '404';
+      }
+   });
 
-   // return NextResponse.json(
-   //    {
-   //       results: await results,
-   //    },
-   //    {
-   //       status: 201,
-   //    }
-   // );
+   return NextResponse.json(
+      {
+         results: await results,
+      },
+      {
+         status: 201,
+      }
+   );
 }
