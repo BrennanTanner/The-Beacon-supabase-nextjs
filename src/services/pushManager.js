@@ -26,6 +26,18 @@ async function checkNotifications() {
         }
       });
 
+      const button2 = document.getElementById("unsubscribe");
+      button2.addEventListener("click", async () => {
+         
+        // Triggers popup to request access to send notifications
+        console.alert(navigator.serviceWorker.getRegistration())
+        unRegisterServiceWorker()
+
+        alert(Notification.permission);
+      });
+
+
+
       if (Notification.permission != 'granted') {
          //
          
@@ -67,7 +79,7 @@ async function checkNotifications() {
                         if (error) throw error;
                         alert('Notifications Enabled!');
                      } catch (error) {
-                        console.log(error);
+                        alert(error);
                         //alert('Error sending request!');
                      }
 
@@ -80,7 +92,7 @@ async function checkNotifications() {
                      // console. In a production environment it might make sense to
                      // also report information about errors back to the
                      // application server.
-                     console.error(error);
+                     alert(error);
                   }
                );
             });
@@ -91,7 +103,7 @@ async function checkNotifications() {
       }
    } else {
       // Push notifications are not supported by the browser.
-      console.error(
+      alert(
          'Push notifications are not supported by the browser. If you want to be notified when your friends light the beacon, try updating your browser.'
       );
    }
@@ -110,7 +122,7 @@ async function unRegisterServiceWorker() {
    // so that the UI update is not superceded by a
    // returning Promise.
    await registration.unregister();
-   console.log('service worker unregistered');
+   alert('service worker unregistered');
 }
 
 async function requestPushNotification() {
@@ -119,8 +131,8 @@ async function requestPushNotification() {
          return true;
       })
       .catch((error) => {
-         console.log('request was rejected');
-         console.log(error);
+         alert('request was rejected');
+         alert(error);
          return false;
       });
 }
@@ -140,7 +152,7 @@ async function createPushNotification() {
       if (navigator.serviceWorker.controller) {
          navigator.serviceWorker.controller.postMessage(notification);
       } else {
-         console.log('No service worker controller found. Try a soft reload.');
+         alert('No service worker controller found. Try a soft reload.');
       }
    }
 }

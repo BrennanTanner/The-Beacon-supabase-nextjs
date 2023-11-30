@@ -33,6 +33,7 @@ export default function BeaconCarousel({ session }) {
    return (
       <ThemeProvider theme={theme}>
          <button id='subscribe'>subscribe</button>
+         <button id='unsubscribe'>unsubscribe</button>
          <Carousel
             height={'100vh'}
             autoPlay={false}
