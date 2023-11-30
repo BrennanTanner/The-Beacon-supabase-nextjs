@@ -16,7 +16,9 @@ async function checkNotifications() {
         const result = await window.Notification.requestPermission();
     
         // If the user rejects the permission result will be "denied"
-        if (result === "granted") {
+        alert(Notification.permission);
+        if (result == "granted") {
+         alert('line 21');
           // You must use the service worker notification to show the notification
           // Using new Notification("Hello World", { body: "My first notification on iOS"}) does not work on iOS
           // despite working on other platforms
@@ -28,14 +30,12 @@ async function checkNotifications() {
 
       const button2 = document.getElementById("unsubscribe");
       button2.addEventListener("click", async () => {
-         
-        // Triggers popup to request access to send notifications
-        console.alert(navigator.serviceWorker.getRegistration())
+   
+        alert(navigator.serviceWorker.getRegistration())
         unRegisterServiceWorker()
 
-        alert(Notification.permission);
+        alert("permission: " + Notification.permission);
       });
-
 
 
       if (Notification.permission != 'granted') {
@@ -117,6 +117,20 @@ function getRegistration() {
 // Unregister a service worker, then update the UI.
 async function unRegisterServiceWorker() {
    // Get a reference to the service worker registration.
+   navigator.serviceWorker.ready.then((reg) => {
+      reg.pushManager.getSubscription().then((subscription) => {
+        subscription
+          .unsubscribe()
+          .then((successful) => {
+            alert("youre unsubscribed");
+          })
+          .catch((e) => {
+            alert("unsubscribe failed");
+            alert(e);
+          });
+      });
+    });
+
    let registration = await getRegistration();
    // Await the outcome of the unregistration attempt
    // so that the UI update is not superceded by a
