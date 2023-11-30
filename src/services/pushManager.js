@@ -11,7 +11,9 @@ async function checkNotifications() {
          //
          if (requestPushNotification()) {
             // Register the service worker.
-            await navigator.serviceWorker.register('/sw.js');
+            await navigator.serviceWorker.register('/sw.js',{
+               scope: "./",
+             });
 
             navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
                const options = {
