@@ -11,17 +11,18 @@ async function checkNotifications() {
 
       const button = document.getElementById("subscribe");
       button.addEventListener("click", async () => {
-         alert(Notification.permission);
+         alert(window.Notification.permission);
         // Triggers popup to request access to send notifications
-        const result = await window.Notification.requestPermission();
+        const result = await window.window.Notification.requestPermission();
     
         // If the user rejects the permission result will be "denied"
-        alert(Notification.permission);
+        alert(window.Notification.permission);
         if (result == "granted") {
          alert('line 21');
           // You must use the service worker notification to show the notification
           // Using new Notification("Hello World", { body: "My first notification on iOS"}) does not work on iOS
           // despite working on other platforms
+          const registration = getRegistration()
           await registration.showNotification("Hello World", {
             body: "My first notification on iOS",
           });
@@ -31,17 +32,18 @@ async function checkNotifications() {
       const button2 = document.getElementById("unsubscribe");
       button2.addEventListener("click", async () => {
    
-        alert(navigator.serviceWorker.getRegistration())
+        alert(await getRegistration())
         unRegisterServiceWorker()
 
-        alert("permission: " + Notification.permission);
+        alert("permission: " + window.Notification.permission);
       });
 
 
-      if (Notification.permission != 'granted') {
+      if (window.Notification.permission != 'granted') {
          //
-         
+         alert("line 44")
          if (requestPushNotification()) {
+            alert("line 46")
             // Register the service worker.
             await navigator.serviceWorker.register('/sw.js',{
                scope: "./",
@@ -140,7 +142,7 @@ async function unRegisterServiceWorker() {
 }
 
 async function requestPushNotification() {
-   Notification.requestPermission()
+   window.Notification.requestPermission()
       .then(() => {
          return true;
       })
