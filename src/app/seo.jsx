@@ -1,9 +1,9 @@
 import Head from 'next/head';
 
-const SEO = ({ pageTitle, pageDescription }) => (
+const SEO = () => (
    <Head>
-      <title>{pageTitle}</title>
-      <meta name='description' content={pageDescription} />
+      {/* <title>{pageTitle}</title>
+      <meta name='description' content={pageDescription} /> */}
       <link rel='manifest' href='/site.webmanifest' />
       <link
          rel='apple-touch-icon'
