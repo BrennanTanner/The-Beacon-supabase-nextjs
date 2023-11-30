@@ -7,47 +7,43 @@ const supabase = createClientComponentClient();
 // TODO: need to insert endpoint into database after service worker is created
 async function checkNotifications() {
    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      
-
-      const button = document.getElementById("subscribe");
-      button.addEventListener("click", async () => {
+      const button = document.getElementById('subscribe');
+      button.addEventListener('click', async () => {
          alert(window.Notification.permission);
-        // Triggers popup to request access to send notifications
-        const result = await window.window.Notification.requestPermission();
-    
-        // If the user rejects the permission result will be "denied"
-        alert(window.Notification.permission);
-        if (result == "granted") {
-         alert('line 21');
-          // You must use the service worker notification to show the notification
-          // Using new Notification("Hello World", { body: "My first notification on iOS"}) does not work on iOS
-          // despite working on other platforms
-          const registration = getRegistration()
-          await registration.showNotification("Hello World", {
-            body: "My first notification on iOS",
-          });
-        }
+         // Triggers popup to request access to send notifications
+         const result = await window.window.Notification.requestPermission();
+
+         // If the user rejects the permission result will be "denied"
+         alert(window.Notification.permission);
+         if (result == 'granted') {
+            alert('line 21');
+            // You must use the service worker notification to show the notification
+            // Using new Notification("Hello World", { body: "My first notification on iOS"}) does not work on iOS
+            // despite working on other platforms
+            const registration = getRegistration();
+            await registration.showNotification('Hello World', {
+               body: 'My first notification on iOS',
+            });
+         }
       });
 
-      const button2 = document.getElementById("unsubscribe");
-      button2.addEventListener("click", async () => {
-   
-        alert(await getRegistration())
-        unRegisterServiceWorker()
+      const button2 = document.getElementById('unsubscribe');
+      button2.addEventListener('click', async () => {
+         alert(await getRegistration());
+         unRegisterServiceWorker();
 
-        alert("permission: " + window.Notification.permission);
+         alert('permission: ' + window.Notification.permission);
       });
-
 
       if (window.Notification.permission != 'granted') {
          //
-         alert("line 44")
+         alert('line 44');
          if (requestPushNotification()) {
-            alert("line 46")
+            alert('line 46');
             // Register the service worker.
-            await navigator.serviceWorker.register('/sw.js',{
-               scope: "./",
-             });
+            await navigator.serviceWorker.register('/sw.js', {
+               scope: './',
+            });
 
             navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
                const options = {
@@ -59,7 +55,6 @@ async function checkNotifications() {
                };
                serviceWorkerRegistration.pushManager.subscribe(options).then(
                   async (pushSubscription) => {
-
                      const pushData = pushSubscription.toJSON();
                      const {
                         data: { user },
@@ -68,20 +63,24 @@ async function checkNotifications() {
                      try {
                         let { error } = await supabase
                            .from('notification_subscription')
-                           .upsert({
-                              user_id: user.id,
-                              endpoint: pushData.endpoint,
-                              keys: {
-                                 auth: pushData.keys.auth,
-                                 p256dh: pushData.keys.p256dh,
+                           .upsert(
+                              {
+                                 user_id: user.id,
+                                 endpoint: pushData.endpoint,
+                                 keys: {
+                                    auth: pushData.keys.auth,
+                                    p256dh: pushData.keys.p256dh,
+                                 },
+                                 expiration_time: pushData.expirationTime,
                               },
-                              expiration_time: pushData.expirationTime,
-                           }, { onConflict: 'user_id' });
+                              { onConflict: 'user_id' }
+                           );
 
                         if (error) throw error;
                         alert('Notifications Enabled!');
                      } catch (error) {
-                        alert(error);
+                        alert('error line 84');
+                        alert(JSON.stringify(error));
                         //alert('Error sending request!');
                      }
 
@@ -94,7 +93,8 @@ async function checkNotifications() {
                      // console. In a production environment it might make sense to
                      // also report information about errors back to the
                      // application server.
-                     alert(error);
+                     alert('error line 98');
+                     alert(JSON.stringify(error));
                   }
                );
             });
@@ -121,17 +121,17 @@ async function unRegisterServiceWorker() {
    // Get a reference to the service worker registration.
    navigator.serviceWorker.ready.then((reg) => {
       reg.pushManager.getSubscription().then((subscription) => {
-        subscription
-          .unsubscribe()
-          .then((successful) => {
-            alert("youre unsubscribed");
-          })
-          .catch((e) => {
-            alert("unsubscribe failed");
-            alert(e);
-          });
+         subscription
+            .unsubscribe()
+            .then((successful) => {
+               alert('youre unsubscribed');
+            })
+            .catch((e) => {
+               alert('unsubscribe failed line 132');
+               alert(JSON.stringify(e));
+            });
       });
-    });
+   });
 
    let registration = await getRegistration();
    // Await the outcome of the unregistration attempt
@@ -147,8 +147,8 @@ async function requestPushNotification() {
          return true;
       })
       .catch((error) => {
-         alert('request was rejected');
-         alert(error);
+         alert("error line 150");
+                        alert(JSON.stringify(error));
          return false;
       });
 }
