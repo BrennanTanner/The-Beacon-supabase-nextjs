@@ -7,30 +7,27 @@ const supabase = createClientComponentClient();
 // TODO: need to insert endpoint into database after service worker is created
 async function checkNotifications() {
    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      console.log(Notification.permission);
+      
+
+      const button = document.getElementById("subscribe");
+      button.addEventListener("click", async () => {
+         alert(Notification.permission);
+        // Triggers popup to request access to send notifications
+        const result = await window.Notification.requestPermission();
+    
+        // If the user rejects the permission result will be "denied"
+        if (result === "granted") {
+          // You must use the service worker notification to show the notification
+          // Using new Notification("Hello World", { body: "My first notification on iOS"}) does not work on iOS
+          // despite working on other platforms
+          await registration.showNotification("Hello World", {
+            body: "My first notification on iOS",
+          });
+        }
+      });
 
       if (Notification.permission != 'granted') {
          //
-
-
-         
-         const button = document.getElementById("subscribe");
-         button.addEventListener("click", async () => {
-           // Triggers popup to request access to send notifications
-           const result = await window.Notification.requestPermission();
-       
-           // If the user rejects the permission result will be "denied"
-           if (result === "granted") {
-             // You must use the service worker notification to show the notification
-             // Using new Notification("Hello World", { body: "My first notification on iOS"}) does not work on iOS
-             // despite working on other platforms
-             await registration.showNotification("Hello World", {
-               body: "My first notification on iOS",
-             });
-           }
-         });
-
-
          
          if (requestPushNotification()) {
             // Register the service worker.
