@@ -4,38 +4,21 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 const supabase = createClientComponentClient();
 
+const button = document.getElementById('subscribe');
+button.addEventListener('click', async () => {
+   checkNotifications();
+   // if (result == 'granted') {
+   //    alert('line 21');
+   //    const registration = getRegistration();
+   //    await registration.showNotification('Hello World', {
+   //       body: 'My first notification on iOS',
+   //    });
+   // }
+});
+
 // TODO: need to insert endpoint into database after service worker is created
 async function checkNotifications() {
    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      // const button = document.getElementById('subscribe');
-      // button.addEventListener('click', async () => {
-      //    alert(window.Notification.permission);
-      //    // Triggers popup to request access to send notifications
-      //    const result = await window.window.Notification.requestPermission();
-
-      //    // If the user rejects the permission result will be "denied"
-      //    alert(window.Notification.permission);
-      //    if (result == 'granted') {
-      //       alert('line 21');
-      //       // You must use the service worker notification to show the notification
-      //       // Using new Notification("Hello World", { body: "My first notification on iOS"}) does not work on iOS
-      //       // despite working on other platforms
-      //       const registration = getRegistration();
-      //       await registration.showNotification('Hello World', {
-      //          body: 'My first notification on iOS',
-      //       });
-      //    }
-      // });
-
-      // const button2 = document.getElementById('unsubscribe');
-      // button2.addEventListener('click', async () => {
-      //    var reg = await getRegistration()
-      //    alert(JSON.stringify(reg));
-      //    unRegisterServiceWorker();
-
-      //    alert('permission: ' + window.Notification.permission);
-      // });
-
       if (window.Notification.permission != 'granted') {
          //
          //alert('line 41');
