@@ -7,45 +7,45 @@ const supabase = createClientComponentClient();
 // TODO: need to insert endpoint into database after service worker is created
 async function checkNotifications() {
    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      const button = document.getElementById('subscribe');
-      button.addEventListener('click', async () => {
-         alert(window.Notification.permission);
-         // Triggers popup to request access to send notifications
-         const result = await window.window.Notification.requestPermission();
+      // const button = document.getElementById('subscribe');
+      // button.addEventListener('click', async () => {
+      //    alert(window.Notification.permission);
+      //    // Triggers popup to request access to send notifications
+      //    const result = await window.window.Notification.requestPermission();
 
-         // If the user rejects the permission result will be "denied"
-         alert(window.Notification.permission);
-         if (result == 'granted') {
-            alert('line 21');
-            // You must use the service worker notification to show the notification
-            // Using new Notification("Hello World", { body: "My first notification on iOS"}) does not work on iOS
-            // despite working on other platforms
-            const registration = getRegistration();
-            await registration.showNotification('Hello World', {
-               body: 'My first notification on iOS',
-            });
-         }
-      });
+      //    // If the user rejects the permission result will be "denied"
+      //    alert(window.Notification.permission);
+      //    if (result == 'granted') {
+      //       alert('line 21');
+      //       // You must use the service worker notification to show the notification
+      //       // Using new Notification("Hello World", { body: "My first notification on iOS"}) does not work on iOS
+      //       // despite working on other platforms
+      //       const registration = getRegistration();
+      //       await registration.showNotification('Hello World', {
+      //          body: 'My first notification on iOS',
+      //       });
+      //    }
+      // });
 
-      const button2 = document.getElementById('unsubscribe');
-      button2.addEventListener('click', async () => {
-         var reg = await getRegistration()
-         alert(JSON.stringify(reg));
-         unRegisterServiceWorker();
+      // const button2 = document.getElementById('unsubscribe');
+      // button2.addEventListener('click', async () => {
+      //    var reg = await getRegistration()
+      //    alert(JSON.stringify(reg));
+      //    unRegisterServiceWorker();
 
-         alert('permission: ' + window.Notification.permission);
-      });
+      //    alert('permission: ' + window.Notification.permission);
+      // });
 
       if (window.Notification.permission != 'granted') {
          //
-         alert('line 41');
+         //alert('line 41');
          if (requestPushNotification()) {
-            alert('line 43');
+            //alert('line 43');
             // Register the service worker.
             await navigator.serviceWorker.register('/sw.js', {
                scope: './',
             });
-
+            //alert(getRegistration());
             navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
                const options = {
                   userVisibleOnly: true,
@@ -80,29 +80,20 @@ async function checkNotifications() {
                         if (error) throw error;
                         alert('Notifications Enabled!');
                      } catch (error) {
-                        alert('error line 84');
-                        alert(JSON.stringify(error));
+                        //alert('error line 84');
+                        // alert(JSON.stringify(error));
+                        console.error(error);
                         //alert('Error sending request!');
                      }
-
-                     // The push subscription details needed by the application
-                     // server are now available, and can be sent to it using,
-                     // for example, the fetch() API.
                   },
                   (error) => {
-                     // During development it often helps to log errors to the
-                     // console. In a production environment it might make sense to
-                     // also report information about errors back to the
-                     // application server.
-                     alert('error line 98');
-                     alert(JSON.stringify(error));
+                     //alert('error line 98');
+                     // alert(JSON.stringify(error));
+                     console.error(error);
                   }
                );
             });
          }
-
-         //   // Save the push subscription to the database.
-         //   savePushSubscription(pushSubscription);
       }
    } else {
       // Push notifications are not supported by the browser.
@@ -128,8 +119,7 @@ async function unRegisterServiceWorker() {
                alert('youre unsubscribed');
             })
             .catch((e) => {
-               alert('unsubscribe failed line 132');
-               alert(JSON.stringify(e));
+               console.error(e);
             });
       });
    });
@@ -148,32 +138,12 @@ async function requestPushNotification() {
          return true;
       })
       .catch((error) => {
-         alert("error line 150");
-                        alert(JSON.stringify(error));
+         alert('error line 150');
+         // alert(JSON.stringify(error));
+         console.error(error);
          return false;
       });
 }
-
-async function createPushNotification() {
-   // Create and send a test notification to the service worker.
-   let randy = Math.floor(Math.random() * 100);
-   let notification = {
-      title: 'Test ' + randy,
-      options: { body: 'Test body ' + randy },
-   };
-   // Get a reference to the service worker registration.
-   let registration = await getRegistration();
-   // Check that the service worker registration exists.
-   if (registration) {
-      // Check that a service worker controller exists before
-      if (navigator.serviceWorker.controller) {
-         navigator.serviceWorker.controller.postMessage(notification);
-      } else {
-         alert('No service worker controller found. Try a soft reload.');
-      }
-   }
-}
-
 // Convert a base64 string to Uint8Array.
 // Must do this so the server can understand the VAPID_PUBLIC_KEY.
 const urlB64ToUint8Array = (base64String) => {
