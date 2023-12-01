@@ -29,7 +29,8 @@ async function checkNotifications() {
 
       const button2 = document.getElementById('unsubscribe');
       button2.addEventListener('click', async () => {
-         alert(await getRegistration());
+         var reg = await getRegistration()
+         alert(JSON.stringify(reg));
          unRegisterServiceWorker();
 
          alert('permission: ' + window.Notification.permission);
@@ -37,9 +38,9 @@ async function checkNotifications() {
 
       if (window.Notification.permission != 'granted') {
          //
-         alert('line 44');
+         alert('line 41');
          if (requestPushNotification()) {
-            alert('line 46');
+            alert('line 43');
             // Register the service worker.
             await navigator.serviceWorker.register('/sw.js', {
                scope: './',
