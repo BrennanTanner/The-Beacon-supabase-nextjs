@@ -35,12 +35,12 @@ export default function Navbar({ session }) {
    });
 
    useEffect(() => {
-      // if (
-      //    getBrowserName() == 'Safari' &&
-      //    window.Notification.permission != 'default'
-      // ) {
-      //    setDisplaySubscribe(true);
-      // }
+      if (
+         getBrowserName() == 'Safari'
+      ) {
+         
+         setDisplaySubscribe(true);
+      }
       checkNotifications();
    });
 
