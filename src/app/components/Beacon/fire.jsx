@@ -1,58 +1,58 @@
-import { Box, Typography, Button } from '@mui/material';
+import { Box } from '@mui/material';
 
 export default function Fire() {
    return (
-      <Box class='fire' sx={{width: '200px'}}>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
-         <div class='particle'></div>
+      <Box className='fire' sx={{width: '200px'}}>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
+         <div className='particle'></div>
       </Box>
    );
 }

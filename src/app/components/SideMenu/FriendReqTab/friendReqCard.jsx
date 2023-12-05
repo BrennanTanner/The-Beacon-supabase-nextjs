@@ -51,7 +51,7 @@ export default function FriendReqCard({ friendRequest, user }) {
                </Typography>
 
                {!userIsSender && (
-                  <Box class='card-buttons'>
+                  <Box className='card-buttons'>
                      <Button
                         size='small'
                         variant='contained'
@@ -76,7 +76,7 @@ export default function FriendReqCard({ friendRequest, user }) {
                   </Box>
                )}
                {userIsSender && (
-                  <Box class='card-buttons'>
+                  <Box className='card-buttons'>
                      <Button size='small' variant='outlined' disabled>
                         Pending
                      </Button>
