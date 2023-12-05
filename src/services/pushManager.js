@@ -23,9 +23,7 @@ const getBrowserName = () => {
    return browser;
 };
 
-const button = document.getElementById('subscribe');
-if (button) {
-   button.addEventListener('click', async () => {
+const subscribeButton = async ()=>{
       // Triggers popup to request access to send notifications
       const result = await window.Notification.requestPermission();
 
@@ -35,8 +33,7 @@ if (button) {
             body: 'Looking good on iOS!',
          });
       }
-   });
-}
+   }
 
 // TODO: need to insert endpoint into database after service worker is created
 async function checkNotifications() {
@@ -166,5 +163,5 @@ const urlB64ToUint8Array = (base64String) => {
 
 module.exports = {
    checkNotifications,
-   getBrowserName,
+   getBrowserName, subscribeButton
 };

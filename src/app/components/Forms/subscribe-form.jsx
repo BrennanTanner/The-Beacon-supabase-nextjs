@@ -1,6 +1,7 @@
 'use client';
 import { Box, Typography } from '@mui/material';
 import { Button } from '@mui/base';
+import {subscribeButton} from '@/services/pushManager'
 
 export default function SubscribeForm() {
    return (
@@ -14,7 +15,9 @@ export default function SubscribeForm() {
          <Typography>
             Make sure you subscribe so you don't miss when a beacon is lit!
          </Typography>
-         <Button variant='contained' id='subscribe'>
+         <Button variant='contained' id='subscribe' onClick={()=>{
+            subscribeButton();
+         }}>
             Subscribe
          </Button>
          <Typography>We won't send you any other notifications.</Typography>
