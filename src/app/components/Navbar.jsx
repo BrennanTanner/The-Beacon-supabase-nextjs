@@ -34,15 +34,15 @@ export default function Navbar({ session }) {
       right: false,
    });
 
-   // useEffect(() => {
-   //    if (
-   //       getBrowserName() == 'Safari' &&
-   //       window.Notification.permission != 'default'
-   //    ) {
-   //       setOpenAutoModal(true);
-   //    }
-   //    checkNotifications();
-   // });
+   useEffect(() => {
+      if (
+         getBrowserName() == 'Safari' &&
+         window.Notification.permission != 'default'
+      ) {
+         setDisplaySubscribe(true);
+      }
+      checkNotifications();
+   });
 
    const toggleDrawer = (anchor, open) => (event) => {
       if (
