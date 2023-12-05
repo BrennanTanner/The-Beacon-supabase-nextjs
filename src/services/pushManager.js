@@ -98,17 +98,17 @@ async function checkNotifications() {
       }
    } else {
       // Push notifications are not supported by the browser.
-      if(getBrowserName() == "Safari"){
-         alert(
-            'Push notifications are only available on saved websites. Save this page to your home screen to recieve notifications when beacons are lit!'
-         );
-      }
-      else{
+      // if(getBrowserName() == "Safari"){
+      //    alert(
+      //       'Push notifications are only available on saved websites. Save this page to your home screen to recieve notifications when beacons are lit!'
+      //    );
+      // }
+      // else{
       alert(
          'Push notifications are not supported by the browser. If you want to be notified when your friends light the beacon, try updating your browser.'
       );
    }
-   }
+  // }
 }
 
 // Get the current service worker registration.
