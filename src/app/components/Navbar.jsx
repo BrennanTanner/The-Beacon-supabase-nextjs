@@ -36,7 +36,7 @@ export default function Navbar({ session }) {
 
    useEffect(() => {
       if (
-         getBrowserName() == 'Safari' &&  isInStandaloneMode() && window.Notification.permission == 'default'
+         getBrowserName() == 'Safari' &&  isInStandaloneMode()
       ) {
          
          setDisplaySubscribe(true);
