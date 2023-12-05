@@ -36,10 +36,11 @@ export default function Navbar({ session }) {
 
    useEffect(() => {
       if (
-         getBrowserName() == 'Safari' &&  isInStandaloneMode()
+         getBrowserName() == 'Safari' 
       ) {
-         
+         isInStandaloneMode();
          setDisplaySubscribe(true);
+         alert(window.Notification.permission);
       }
       checkNotifications();
    });

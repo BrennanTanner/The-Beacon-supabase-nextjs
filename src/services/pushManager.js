@@ -25,7 +25,7 @@ const getBrowserName = () => {
 
 // check if the device is in standalone mode
 const isInStandaloneMode = () => {
-   return "standalone" in window.navigator && window.navigator.standalone
+   alert(window.navigator.standalone) 
  }
  
 
