@@ -39,7 +39,7 @@ export default function Navbar({ session }) {
          getBrowserName() == 'Safari' 
       ) {
          isInStandaloneMode();
-         setDisplaySubscribe(true);
+        // setDisplaySubscribe(true);
          alert(window.Notification.permission);
       }
       checkNotifications();
