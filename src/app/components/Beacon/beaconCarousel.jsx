@@ -1,14 +1,16 @@
 'use client';
 import { useState, useCallback, useEffect } from 'react';
 import { Box, Typography, Button } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Carousel from 'react-material-ui-carousel';
 import { getGroups } from '@/services/dataFetchers';
 import { lightBeacon } from '@/services/dataSenders';
 import Beacon from './beacon';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { themeOptions } from '@/app/styles/mui-theme';
+import {darkThemeOptions} from '../../styles/mui-theme-dark';
+import {lightThemeOptions} from '../../styles/mui-theme-light';
 
-const theme = createTheme(themeOptions);
+
 
 export default function BeaconCarousel({ session }) {
    const [loading, setLoading] = useState(true);
@@ -29,6 +31,9 @@ export default function BeaconCarousel({ session }) {
       setLoading(true);
       lightBeacon(group.id);
    }, []);
+
+   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
+const theme = createTheme(prefersDarkMode ?darkThemeOptions : lightThemeOptions);
 
    return (
       <ThemeProvider theme={theme}>

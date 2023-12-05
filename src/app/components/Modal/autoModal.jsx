@@ -18,15 +18,14 @@ const style = {
    p: 4,
 };
 
-export default function TransitionsModal({ text, contents }) {
-   const [open, setOpen] = React.useState(false);
+export default function AutoModal({ text, contents, parentOpen }) {
+   const [open, setOpen] = React.useState(parentOpen);
    const handleOpen = () => setOpen(true);
    const handleClose = () => setOpen(false);
 
    return (
       <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
         
-         <Button variant='contained' startIcon={text=='Profile'?null:<PlusIcon />} onClick={handleOpen}>{text}</Button>
          <Modal
             aria-labelledby='transition-modal-title'
             aria-describedby='transition-modal-description'

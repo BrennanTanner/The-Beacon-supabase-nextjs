@@ -29,7 +29,7 @@ export default function FriendReqCard({ friendRequest, user }) {
          : friendRequest.receiver_profile;
 
    return (
-      <Card sx={{ maxWidth: 345, padding: '5px', display: display}}>
+      <Card sx={{ maxWidth: 345, padding: '5px', display: display, backgroundColor: '#5b6068' }}>
          
          <Box sx={{ display: 'flex', justifyContent: 'flex-start',alignItems: 'center' }}>
             <Avatar

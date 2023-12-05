@@ -39,7 +39,8 @@ export default function GroupAccordion({ user, friends }) {
       <Accordion
          expanded={expanded === 'panel1'}
          onChange={handleChange('panel1')}
-         sx={{ width: '100%' }}
+         sx={{ width: '100%', backgroundColor: '#474c55',
+          }}
       >
          <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -53,8 +54,10 @@ export default function GroupAccordion({ user, friends }) {
          <TransitionsModal text={'new Group'} contents={<GroupForm session={user} friends={friends}/>}/>
          
             {groups.map((group) => (
-               <GroupCard group={group.groups} key={group.groups.id} />
+               <GroupCard group={group.groups} key={group.groups.id}
+        />
             ))}
+           
 
          </AccordionDetails>
       </Accordion>

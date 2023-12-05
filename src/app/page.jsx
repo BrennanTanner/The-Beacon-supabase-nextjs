@@ -13,7 +13,7 @@ export default async function Home() {
 
    if (session) {
       return (
-         <main style={{ backgroundImage: 'url("/space-w-alpha.png")' }}>
+         <main>
             <Navbar session={session} />
             <BeaconCarousel session={session} />
          </main>

@@ -13,29 +13,52 @@ import {
    MenuItem,
    SwipeableDrawer,
    Button,
+   Modal,
+   Backdrop,
+   Fade,
 } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuDrawer from './SideMenu/menuDrawer';
 import TransitionsModal from './Modal/modal';
 import AccountForm from './Forms/account-form';
+import SubscribeForm from './Forms/subscribe-form';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {themeOptions} from '../styles/mui-theme';
-import {checkNotifications} from '@/services/pushManager'
+import { darkThemeOptions } from '../styles/mui-theme-dark';
+import { lightThemeOptions } from '../styles/mui-theme-light';
+import { checkNotifications, getBrowserName } from '@/services/pushManager';
 
-const theme = createTheme(themeOptions);
+const style = {
+   position: 'absolute',
+   top: '50%',
+   left: '50%',
+   transform: 'translate(-50%, -50%)',
+   width: 400,
+   bgcolor: 'background.paper',
+   border: '2px solid #000',
+   boxShadow: 24,
+   p: 4,
+};
 
 export default function Navbar({ session }) {
-   const supabase = createClientComponentClient();
-
    const [anchorElUser, setAnchorElUser] = useState(null);
    const [userSession, setUserSession] = useState(session);
+   const [displaySubscribe, setDisplaySubscribe] = useState(false);
    const [drawerOpen, setDrawerOpen] = useState({
       left: false,
       right: false,
    });
 
-   useEffect(()=>{
+   const handleClose = () => setOpenAutoModal(false);
+
+   useEffect(() => {
+      if (
+         getBrowserName() == 'Safari' &&
+         window.Notification.permission != 'default'
+      ) {
+         setOpenAutoModal(true);
+      }
       checkNotifications();
    });
 
@@ -58,88 +81,99 @@ export default function Navbar({ session }) {
       setAnchorElUser(null);
    };
 
+   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+   const theme = createTheme(
+      prefersDarkMode ? darkThemeOptions : lightThemeOptions
+   );
    return (
       <ThemeProvider theme={theme}>
-      <AppBar position='static'>
-         <Container maxWidth='xl'>
-            <Toolbar disableGutters>
-               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}>
-                  <IconButton
-                     size='large'
-                     aria-label='account of current user'
-                     aria-controls='menu-appbar'
-                     aria-haspopup='true'
-                     onClick={toggleDrawer('left', true)}
-                     color='inherit'
+         <AppBar position='static'>
+            <Container maxWidth='xl' sx={{ backgroundColor: '#323842' }}>
+               <Toolbar disableGutters>
+                  <Box
+                     sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex' } }}
                   >
-                     <MenuIcon />
-                  </IconButton>
-               </Box>
-               <Typography
-                  variant='h3'
-                  noWrap
-               >
-                  The Beacon
-               </Typography>
-
-               <Box sx={{ flexGrow: 0 }}>
-                  <Tooltip title='Open settings'>
-                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar
-                           alt='Remy Sharp'
-                           src={session.user.user_metadata.avatar_url}
-                        />
-                     </IconButton>
-                  </Tooltip>
-                  <Menu
-                     sx={{ mt: '45px' }}
-                     id='menu-appbar'
-                     anchorEl={anchorElUser}
-                     anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                     }}
-                     keepMounted
-                     transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                     }}
-                     open={Boolean(anchorElUser)}
-                     onClose={handleCloseUserMenu}
-                  >
-                     <MenuItem key='1' onClick={handleCloseUserMenu}>
-                        <TransitionsModal
-                           text={'Profile'}
-                           contents={<AccountForm session={userSession} />}
-                        />
-                     </MenuItem>
-
-                     <form
-                        id='logout'
-                        action='/auth/signout'
-                        method='post'
-                     ></form>
-                     <MenuItem
-                        key='2'
-                        onClick={() => {
-                           document.getElementById('logout').submit();
-                        }}
+                     <IconButton
+                        size='large'
+                        aria-label='account of current user'
+                        aria-controls='menu-appbar'
+                        aria-haspopup='true'
+                        onClick={toggleDrawer('left', true)}
+                        color='inherit'
                      >
-                        <Button>Logout</Button>
-                     </MenuItem>
-                  </Menu>
-               </Box>
-            </Toolbar>
-         </Container>
-         <SwipeableDrawer
-            anchor='left'
-            open={drawerOpen['left']}
-            onClose={toggleDrawer('left', false)}
-            onOpen={toggleDrawer('left', true)}
-         >
-            <MenuDrawer session={userSession} />
-         </SwipeableDrawer>
-      </AppBar>
+                        <MenuIcon />
+                     </IconButton>
+                  </Box>
+                  <Typography variant='h3' noWrap>
+                     The Beacon
+                  </Typography>
+
+                  <Box sx={{ flexGrow: 0 }}>
+                     <Tooltip title='Open settings'>
+                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                           <Avatar
+                              alt='Remy Sharp'
+                              src={session.user.user_metadata.avatar_url}
+                           />
+                        </IconButton>
+                     </Tooltip>
+
+                     <Menu
+                        sx={{ mt: '45px' }}
+                        id='menu-appbar'
+                        anchorEl={anchorElUser}
+                        anchorOrigin={{
+                           vertical: 'top',
+                           horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                           vertical: 'top',
+                           horizontal: 'right',
+                        }}
+                        open={Boolean(anchorElUser)}
+                        onClose={handleCloseUserMenu}
+                     >
+                        <MenuItem key='1' onClick={handleCloseUserMenu}>
+                           <TransitionsModal
+                              text={'Profile'}
+                              contents={<AccountForm session={userSession} />}
+                           />
+                        </MenuItem>
+
+                        <form
+                           id='logout'
+                           action='/auth/signout'
+                           method='post'
+                        ></form>
+                        <MenuItem
+                           key='2'
+                           onClick={() => {
+                              document.getElementById('logout').submit();
+                           }}
+                        >
+                           <Button>Logout</Button>
+                        </MenuItem>
+                     </Menu>
+                  </Box>
+               </Toolbar>
+            </Container>
+            <SwipeableDrawer
+               anchor='left'
+               open={drawerOpen['left']}
+               onClose={toggleDrawer('left', false)}
+               onOpen={toggleDrawer('left', true)}
+            >
+               <MenuDrawer session={userSession} />
+            </SwipeableDrawer>
+            {displaySubscribe && (
+               <TransitionsModal
+                  text={'Subscribe'}
+                  contents={<SubscribeForm />}
+                  session={userSession}
+               />
+            )}
+         </AppBar>
       </ThemeProvider>
    );
 }

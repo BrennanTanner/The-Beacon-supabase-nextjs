@@ -4,17 +4,39 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 const supabase = createClientComponentClient();
 
+const getBrowserName = () => {
+   let browserInfo = navigator.userAgent;
+   let browser;
+   if (browserInfo.includes('Opera') || browserInfo.includes('Opr')) {
+      browser = 'Opera';
+   } else if (browserInfo.includes('Edg')) {
+      browser = 'Edge';
+   } else if (browserInfo.includes('Chrome')) {
+      browser = 'Chrome';
+   } else if (browserInfo.includes('Safari')) {
+      browser = 'Safari';
+   } else if (browserInfo.includes('Firefox')) {
+      browser = 'Firefox';
+   } else {
+      browser = 'unknown';
+   }
+   return browser;
+};
+
 const button = document.getElementById('subscribe');
-button.addEventListener('click', async () => {
-   checkNotifications();
-   // if (result == 'granted') {
-   //    alert('line 21');
-   //    const registration = getRegistration();
-   //    await registration.showNotification('Hello World', {
-   //       body: 'My first notification on iOS',
-   //    });
-   // }
-});
+if (button) {
+   button.addEventListener('click', async () => {
+      // Triggers popup to request access to send notifications
+      const result = await window.Notification.requestPermission();
+
+      // If the user rejects the permission result will be "denied"
+      if (result === 'granted') {
+         await registration.showNotification('Hello there', {
+            body: 'Looking good on iOS!',
+         });
+      }
+   });
+}
 
 // TODO: need to insert endpoint into database after service worker is created
 async function checkNotifications() {
@@ -144,4 +166,5 @@ const urlB64ToUint8Array = (base64String) => {
 
 module.exports = {
    checkNotifications,
+   getBrowserName,
 };

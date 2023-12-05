@@ -10,16 +10,17 @@ export default function Beacon({ groupData }) {
    const [beaconIsLit, setBeaconIsLit] = useState(groupData.beacon_lit);
    const [beaconTimer, setBeaconTimer] = useState(groupData.beacon_changed);
 
-   const qeueBeacon = useCallback(async () => {
+   const qeueBeacon = async () => {
       setLoading(true);
       const success = await lightBeacon(groupData.id, beaconIsLit);
-
+      console.log(!beaconIsLit);
       if (success) {
+         console.log('here');
          setBeaconIsLit(!beaconIsLit);
       }
       
       setLoading(false);
-   }, [groupData]);
+   };
 
    return (
       <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -34,8 +35,7 @@ export default function Beacon({ groupData }) {
                padding: '10px',
                margin: 'auto',
                textAlign: 'center',
-               backdropFilter: 'blur(16px) saturate(180%)',
-               backgroundColor: 'rgba(17, 25, 40, 0.75)',
+               backgroundColor: '#323842',
                borderRadius: '12px',
                border: '1px solid rgba(255, 255, 255, 0.125)',
             }}

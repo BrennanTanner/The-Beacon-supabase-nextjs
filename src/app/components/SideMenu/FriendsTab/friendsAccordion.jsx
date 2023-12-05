@@ -41,7 +41,7 @@ export default function FriendAccordion({ user, onFindFriends }) {
       <Accordion
          expanded={expanded === 'panel1'}
          onChange={handleChange('panel1')}
-         sx={{ width: '100%' }}
+         sx={{ width: '100%', backgroundColor: '#474c55', }}
       >
          <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -58,7 +58,9 @@ export default function FriendAccordion({ user, onFindFriends }) {
                contents={<FriendForm session={user} friends={friends} />}
             />
 
-            {friends.map((friend) => (
+
+            {friends instanceof Array &&
+            friends.map((friend) => (
                <FriendCard friend={friend} key={friend.id} />
             ))}
          </AccordionDetails>
