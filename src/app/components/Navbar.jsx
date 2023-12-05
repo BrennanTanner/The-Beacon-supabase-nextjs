@@ -23,7 +23,7 @@ import SubscribeForm from './Forms/subscribe-form';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { darkThemeOptions } from '../styles/mui-theme-dark';
 import { lightThemeOptions } from '../styles/mui-theme-light';
-import { checkNotifications, getBrowserName } from '@/services/pushManager';
+import { checkNotifications, getBrowserName, isInSta } from '@/services/pushManager';
 
 export default function Navbar({ session }) {
    const [anchorElUser, setAnchorElUser] = useState(null);
@@ -36,7 +36,7 @@ export default function Navbar({ session }) {
 
    useEffect(() => {
       if (
-         getBrowserName() == 'Safari'
+         getBrowserName() == 'Safari' &&  isInStandaloneMode() && window.Notification.permission == 'default'
       ) {
          
          setDisplaySubscribe(true);
@@ -149,11 +149,13 @@ export default function Navbar({ session }) {
                <MenuDrawer session={userSession} />
             </SwipeableDrawer>
             {displaySubscribe && (
+               <Box>
+               <Typography>Subscribe to push notifications -&gt;</Typography>
                <TransitionsModal
                   text={'Subscribe'}
                   contents={<SubscribeForm />}
                   session={userSession}
-               />
+               /></Box>
             )}
          </AppBar>
       </ThemeProvider>

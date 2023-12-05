@@ -23,16 +23,15 @@ const getBrowserName = () => {
    return browser;
 };
 
+// check if the device is in standalone mode
+const isInStandaloneMode = () => {
+   return "standalone" in window.navigator && window.navigator.standalone
+ }
+ 
+
 const subscribeButton = async () => {
    // Triggers popup to request access to send notifications
    const result = await window.Notification.requestPermission();
-
-   // If the user rejects the permission result will be "denied"
-   if (result === 'granted') {
-      await registration.showNotification('Hello there', {
-         body: 'Looking good on iOS!',
-      });
-   }
 };
 
 // TODO: need to insert endpoint into database after service worker is created
@@ -99,9 +98,16 @@ async function checkNotifications() {
       }
    } else {
       // Push notifications are not supported by the browser.
+      if(getBrowserName() == "Safari"){
+         alert(
+            'Push notifications are only available on saved websites. Save this page to your home screen to recieve notifications when beacons are lit!'
+         );
+      }
+      else{
       alert(
          'Push notifications are not supported by the browser. If you want to be notified when your friends light the beacon, try updating your browser.'
       );
+   }
    }
 }
 
@@ -165,4 +171,5 @@ module.exports = {
    checkNotifications,
    getBrowserName,
    subscribeButton,
+   isInStandaloneMode
 };
