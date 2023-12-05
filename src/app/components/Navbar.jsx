@@ -13,9 +13,6 @@ import {
    MenuItem,
    SwipeableDrawer,
    Button,
-   Modal,
-   Backdrop,
-   Fade,
 } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -23,7 +20,6 @@ import MenuDrawer from './SideMenu/menuDrawer';
 import TransitionsModal from './Modal/modal';
 import AccountForm from './Forms/account-form';
 import SubscribeForm from './Forms/subscribe-form';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { darkThemeOptions } from '../styles/mui-theme-dark';
 import { lightThemeOptions } from '../styles/mui-theme-light';
@@ -38,17 +34,15 @@ export default function Navbar({ session }) {
       right: false,
    });
 
-   const handleClose = () => setOpenAutoModal(false);
-
-   useEffect(() => {
-      if (
-         getBrowserName() == 'Safari' &&
-         window.Notification.permission != 'default'
-      ) {
-         setOpenAutoModal(true);
-      }
-      checkNotifications();
-   });
+   // useEffect(() => {
+   //    if (
+   //       getBrowserName() == 'Safari' &&
+   //       window.Notification.permission != 'default'
+   //    ) {
+   //       setOpenAutoModal(true);
+   //    }
+   //    checkNotifications();
+   // });
 
    const toggleDrawer = (anchor, open) => (event) => {
       if (

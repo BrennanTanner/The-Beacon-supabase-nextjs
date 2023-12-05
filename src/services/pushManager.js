@@ -23,17 +23,17 @@ const getBrowserName = () => {
    return browser;
 };
 
-const subscribeButton = async ()=>{
-      // Triggers popup to request access to send notifications
-      const result = await window.Notification.requestPermission();
+const subscribeButton = async () => {
+   // Triggers popup to request access to send notifications
+   const result = await window.Notification.requestPermission();
 
-      // If the user rejects the permission result will be "denied"
-      if (result === 'granted') {
-         await registration.showNotification('Hello there', {
-            body: 'Looking good on iOS!',
-         });
-      }
+   // If the user rejects the permission result will be "denied"
+   if (result === 'granted') {
+      await registration.showNotification('Hello there', {
+         body: 'Looking good on iOS!',
+      });
    }
+};
 
 // TODO: need to insert endpoint into database after service worker is created
 async function checkNotifications() {
@@ -163,5 +163,6 @@ const urlB64ToUint8Array = (base64String) => {
 
 module.exports = {
    checkNotifications,
-   getBrowserName, subscribeButton
+   getBrowserName,
+   subscribeButton,
 };
