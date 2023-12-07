@@ -25,9 +25,8 @@ const getBrowserName = () => {
 
 // check if the device is in standalone mode
 const isInStandaloneMode = () => {
-   return window.navigator.standalone 
- }
- 
+   return window.navigator.standalone;
+};
 
 const subscribeButton = async () => {
    // Triggers popup to request access to send notifications
@@ -35,25 +34,22 @@ const subscribeButton = async () => {
    checkNotifications();
 };
 
-
-const sendPushSample = ()=>{
-   console.log(window.Notification.permission);
+const sendPushSample = () => {
    alert(window.Notification.permission);
-   
-   const title = "Push title";
-const options = {
-    body: "Additional text with some description",
-    icon: "https://andreinwald.github.io/webpush-ios-example/images/favicon.png",
-    data: {
-        "url": "https://andreinwald.github.io/webpush-ios-example/success.html",
-        "message_id": "your_internal_unique_message_id_for_tracking"
-    },
-};
-navigator.serviceWorker.ready.then(function (serviceWorker) {
-    serviceWorker.showNotification(title, options);
-});
 
-}
+   const title = 'Push title';
+   const options = {
+      body: 'Additional text with some description',
+      icon: 'https://andreinwald.github.io/webpush-ios-example/images/favicon.png',
+      data: {
+         url: 'https://andreinwald.github.io/webpush-ios-example/success.html',
+         message_id: 'your_internal_unique_message_id_for_tracking',
+      },
+   };
+   navigator.serviceWorker.ready.then(function (serviceWorker) {
+      serviceWorker.showNotification(title, options);
+   });
+};
 // TODO: need to insert endpoint into database after service worker is created
 async function checkNotifications() {
    if ('serviceWorker' in navigator && 'PushManager' in window) {
@@ -63,14 +59,16 @@ async function checkNotifications() {
          if (requestPushNotification()) {
             //alert('line 43');
             // Register the service worker.
-            if(getBrowserName() == "Safari")
-            {await navigator.serviceWorker.register('/swIOS.js', {
-               scope: './',
-            })}
-            else{await navigator.serviceWorker.register('/sw.js', {
-               scope: './',
-            })}
-            
+            if (getBrowserName() == 'Safari') {
+               await navigator.serviceWorker.register('/swIOS.js', {
+                  scope: './',
+               });
+            } else {
+               await navigator.serviceWorker.register('/sw.js', {
+                  scope: './',
+               });
+            }
+
             //alert(getRegistration());
             navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
                const options = {
@@ -80,14 +78,13 @@ async function checkNotifications() {
                      process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
                   ),
                };
-                       console.log(JSON.stringify(options));
+               console.log(JSON.stringify(options));
                serviceWorkerRegistration.pushManager.subscribe(options).then(
-                  
                   async (pushSubscription) => {
-                     console.log(pushSubscription.subscriptionId)
-        console.log(pushSubscription.endpoint)
+                     console.log(pushSubscription.subscriptionId);
+                     console.log(pushSubscription.endpoint);
                      const pushData = pushSubscription.toJSON();
-                     
+
                      const {
                         data: { user },
                      } = await supabase.auth.getUser();
@@ -142,7 +139,7 @@ async function checkNotifications() {
          'Push notifications are not supported by the browser. If you want to be notified when your friends light the beacon, try updating your browser.'
       );
    }
-  // }
+   // }
 }
 
 // Get the current service worker registration.
@@ -210,5 +207,5 @@ module.exports = {
    getBrowserName,
    subscribeButton,
    isInStandaloneMode,
-    sendPushSample
+   sendPushSample,
 };
