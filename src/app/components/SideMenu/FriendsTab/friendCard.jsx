@@ -3,10 +3,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Avatar } from '@mui/material';
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 export default function FriendCard({friend}) {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const color = prefersDarkMode ? '#101313' : '#474c55'
   return (
-    <Card sx={{ maxWidth: 345,backgroundColor: '#474c55',margin: '10px 5px'  }} >
+    <Card sx={{ maxWidth: 345, backgroundColor: color ,margin: '10px 5px'  }} >
       <CardActionArea sx={{display: "flex",justifyContent: 'flex-start', padding: '5px 10px'}} >
       <Avatar
   alt={friend.username}

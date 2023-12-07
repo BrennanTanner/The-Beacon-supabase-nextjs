@@ -108,7 +108,7 @@ async function checkNotifications() {
                      } catch (error) {
                         //alert('error line 84');
                         // alert(JSON.stringify(error));
-                        console.log('ln 88');
+                        
                         alert(error);
                         console.log(error);
                         //alert('Error sending request!');
@@ -117,7 +117,7 @@ async function checkNotifications() {
                   (error) => {
                      //alert('error line 98');
                      // alert(JSON.stringify(error));
-                     alert('ln 96');
+                     
                      alert(error);
                      console.error(error);
                   }

@@ -5,10 +5,14 @@ import GroupAccordion from './GroupsTab/groupsAccordion';
 import FriendsAccordion from './FriendsTab/friendsAccordion';
 import FriendsReqAccordion from './FriendReqTab/friendsReqAccordion';
 import Copyright from './Copyright';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function MenuDrawer({ session, setCarouselIndex, toggleDrawer }) {
    const [friends, setFriends] = useState({});
    const user = session?.user;
+
+   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+   const color = prefersDarkMode ? '#101313' : '#f1f3f3'
 
    return (
       <Box
@@ -17,7 +21,7 @@ export default function MenuDrawer({ session, setCarouselIndex, toggleDrawer }) 
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            backgroundColor: '#101313',
+            backgroundColor: color,
          }}
       >
          <List sx={{ width: { xs: '80vw', sm: '50vw', lg: '33vw' } }}>

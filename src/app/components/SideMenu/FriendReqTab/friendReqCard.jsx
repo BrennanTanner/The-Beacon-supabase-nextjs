@@ -10,10 +10,14 @@ import {
    Card,
 } from '@mui/material';
 import { updateFriendRequest } from '@/services/dataSenders';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function FriendReqCard({ friendRequest, user }) {
    const [userIsSender, setUserIsSender] = useState(false);
    const [display, setDisplay] = useState('block');
+
+   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+   const color = prefersDarkMode ? '#101313' : '#474c55'
 
    useEffect(() => {
       if (friendRequest.sender != user.id) {
@@ -29,7 +33,7 @@ export default function FriendReqCard({ friendRequest, user }) {
          : friendRequest.receiver_profile;
 
    return (
-      <Card sx={{ maxWidth: 345, padding: '5px', display: display, backgroundColor: '#474c55', margin: '10px 5px'}}>
+      <Card sx={{ maxWidth: 345, padding: '5px', display: display, backgroundColor: color, margin: '10px 5px'}}>
          
          <Box sx={{ display: 'flex', justifyContent: 'flex-start',alignItems: 'center' }}>
             <Avatar
