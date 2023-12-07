@@ -36,13 +36,12 @@ const subscribeButton = async () => {
 
 const sendPushSample = () => {
 
-   const title = 'Push title';
+   const title = 'The Beacon Has been Lit!';
    const options = {
-      body: 'Additional text with some description',
-      icon: 'https://andreinwald.github.io/webpush-ios-example/images/favicon.png',
+      body: 'Head here to light your beacon',
+      icon: '../../public/Pyre.svg',
       data: {
-         url: 'https://andreinwald.github.io/webpush-ios-example/success.html',
-         message_id: 'your_internal_unique_message_id_for_tracking',
+         url: 'https://www.lightthebeacon.app',
       },
    };
    navigator.serviceWorker.ready.then(function (serviceWorker) {

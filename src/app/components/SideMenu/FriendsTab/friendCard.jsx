@@ -6,7 +6,7 @@ import { CardActionArea, Avatar } from '@mui/material';
 
 export default function FriendCard({friend}) {
   return (
-    <Card sx={{ maxWidth: 345, margin: '10px 0px',backgroundColor: '#474c55'  }} >
+    <Card sx={{ maxWidth: 345,backgroundColor: '#474c55',margin: '10px 5px'  }} >
       <CardActionArea sx={{display: "flex",justifyContent: 'flex-start', padding: '5px 10px'}} >
       <Avatar
   alt={friend.username}

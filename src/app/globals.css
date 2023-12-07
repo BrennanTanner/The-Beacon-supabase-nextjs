@@ -143,6 +143,11 @@ margin-right: 10px;
 
   background-color: #474c55;
 }
+
+.css-1ygvd26 {
+  margin: 10px 5px;
+}
+
 .beacon-box{
   width: 50%;
   height: 500px;
@@ -166,7 +171,7 @@ background-size: 50%;
   .site-title{
     font-size: 2rem;
   }
-  .css-1nrli34-MuiTypography-root{
+  .css-hyzr1r {
     font-size: 1.6rem;
   }
   .css-o4b71y-MuiAccordionSummary-content {
