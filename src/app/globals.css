@@ -139,15 +139,67 @@ a {
 margin-right: 10px;
 }
 
+.css-4fuun5-MuiInputBase-input-MuiOutlinedInput-input {
 
+  background-color: #474c55;
+}
+.beacon-box{
+  width: 50%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+  margin: auto;
+  text-align: center;
+background-image: URL("/Pyre.svg");
+background-repeat: no-repeat;
+background-position: center;
+background-size: 50%;
+  background-color: #323842;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
 
+@media screen and (max-width: 480px) {
+  .site-title{
+    font-size: 2rem;
+  }
+  .css-1nrli34-MuiTypography-root{
+    font-size: 1.6rem;
+  }
+  .css-o4b71y-MuiAccordionSummary-content {
+    margin: 25px 0;
+  }
+  .beacon-box{
+    width: 75%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 100px;
+    text-align: center;
+  background-image: URL("/Pyre.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%;
+    background-color: #323842;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+  }
+}
 
 /* Fire Animation */
 .fire {
   font-size: 24px;
   filter: blur(0.02em);
   -webkit-filter: blur(0.02em);
-  margin: 50% auto 0 auto;
+  margin: 17vh auto;
   position: relative;
   width: 20vw;
 }

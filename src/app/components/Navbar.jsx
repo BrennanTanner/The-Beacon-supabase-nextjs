@@ -92,7 +92,7 @@ export default function Navbar({ session }) {
                         <MenuIcon />
                      </IconButton>
                   </Box>
-                  <Typography variant='h3' noWrap>
+                  <Typography variant='h3' className='site-title' noWrap>
                      The Beacon
                   </Typography>
 

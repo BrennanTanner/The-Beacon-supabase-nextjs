@@ -46,7 +46,7 @@ const theme = createTheme(prefersDarkMode ?darkThemeOptions : lightThemeOptions)
             navButtonsAlwaysVisible={true}
             indicators={true}
             cycleNavigation={true}
-            swipe={true}
+            swipe={false}
             sx={{height: "90vh",}}
          >
             {groups.map((group) => {

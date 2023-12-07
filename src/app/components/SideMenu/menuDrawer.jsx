@@ -17,6 +17,7 @@ export default function MenuDrawer({ session }) {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
+            backgroundColor: '#101313',
          }}
       >
          <List sx={{ width: { xs: '80vw', sm: '50vw', lg: '33vw' } }}>

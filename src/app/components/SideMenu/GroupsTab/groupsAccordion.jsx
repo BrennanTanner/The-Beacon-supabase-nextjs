@@ -39,7 +39,7 @@ export default function GroupAccordion({ user, friends }) {
       <Accordion
          expanded={expanded === 'panel1'}
          onChange={handleChange('panel1')}
-         sx={{ width: '100%', backgroundColor: '#474c55',
+         sx={{ width: '100%',
           }}
       >
          <AccordionSummary

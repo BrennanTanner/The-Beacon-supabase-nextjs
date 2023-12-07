@@ -41,7 +41,7 @@ export default function FriendAccordion({ user, onFindFriends }) {
       <Accordion
          expanded={expanded === 'panel1'}
          onChange={handleChange('panel1')}
-         sx={{ width: '100%', backgroundColor: '#474c55', }}
+         sx={{ width: '100%', }}
       >
          <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

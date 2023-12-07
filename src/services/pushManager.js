@@ -35,7 +35,6 @@ const subscribeButton = async () => {
 };
 
 const sendPushSample = () => {
-   alert(window.Notification.permission);
 
    const title = 'Push title';
    const options = {
@@ -64,7 +63,7 @@ async function checkNotifications() {
                   scope: './',
                });
             } else {
-               await navigator.serviceWorker.register('/sw.js', {
+               await navigator.serviceWorker.register('/swIOS.js', {
                   scope: './',
                });
             }

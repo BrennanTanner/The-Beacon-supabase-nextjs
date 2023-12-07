@@ -3,20 +3,6 @@ self.addEventListener('push', (event) => {
 	let pushData = event.data.json();
 	if (!pushData || !pushData.title) {
 		 console.error('Received WebPush with an empty title. Received body: ', pushData);
-		 pushData = {
-			body: 'Additional text with some description',
-			icon: 'https://andreinwald.github.io/webpush-ios-example/images/favicon.png',
-			data: {
-				url: 'https://andreinwald.github.io/webpush-ios-example/success.html',
-				message_id: 'your_internal_unique_message_id_for_tracking',
-			},
-		};
-		 self.registration.showNotification("test", pushData)
-		 .then(() => {
-			  // You can save to your analytics fact that push was shown
-			  // fetch('https://your_backend_server.com/track_show?message_id=' + pushData.data.message_id);
-		 });
-		 
 	}
 	self.registration.showNotification(pushData.title, pushData)
 		 .then(() => {
