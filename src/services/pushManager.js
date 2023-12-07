@@ -61,9 +61,14 @@ async function checkNotifications() {
          if (requestPushNotification()) {
             //alert('line 43');
             // Register the service worker.
-            await navigator.serviceWorker.register('/sw.js', {
+            if(getBrowserName() == "Safari")
+            {await navigator.serviceWorker.register('/swIOS.js', {
                scope: './',
-            });
+            })}
+            else{await navigator.serviceWorker.register('/sw.js', {
+               scope: './',
+            })}
+            
             //alert(getRegistration());
             navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
                const options = {
