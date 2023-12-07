@@ -25,7 +25,7 @@ const getBrowserName = () => {
 
 // check if the device is in standalone mode
 const isInStandaloneMode = () => {
-   alert(window.navigator.standalone) 
+   return window.navigator.standalone 
  }
  
 
@@ -35,6 +35,23 @@ const subscribeButton = async () => {
    checkNotifications();
 };
 
+
+const sendPushSample = ()=>{
+   const title = "Push title";
+const options = {
+    body: "Additional text with some description",
+    icon: "https://andreinwald.github.io/webpush-ios-example/images/favicon.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg/1920px-Orange_tabby_cat_sitting_on_fallen_leaves-Hisashi-01A.jpg",
+    data: {
+        "url": "https://andreinwald.github.io/webpush-ios-example/success.html",
+        "message_id": "your_internal_unique_message_id_for_tracking"
+    },
+};
+navigator.serviceWorker.ready.then(function (serviceWorker) {
+    serviceWorker.showNotification(title, options);
+});
+
+}
 // TODO: need to insert endpoint into database after service worker is created
 async function checkNotifications() {
    if ('serviceWorker' in navigator && 'PushManager' in window) {
@@ -49,7 +66,6 @@ async function checkNotifications() {
             });
             //alert(getRegistration());
             navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
-               alert('line 51')
                const options = {
                   userVisibleOnly: true,
                   // applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
@@ -186,5 +202,6 @@ module.exports = {
    checkNotifications,
    getBrowserName,
    subscribeButton,
-   isInStandaloneMode
+   isInStandaloneMode,
+    sendPushSample
 };

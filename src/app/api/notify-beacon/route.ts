@@ -26,10 +26,12 @@ export async function POST(request: NextRequest) {
             .sendNotification(subscription.profile, notification)
             .then(async (result) => {
                //results.success.push({ id: id, result: result });
+               //console.log(result)
                return result.status;
             })
             .catch((error) => {
                //results.fail.push({ id: id, result: error });
+               //console.log(error)
                return error;
             });
          return '201';

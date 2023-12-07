@@ -23,7 +23,11 @@ import SubscribeForm from './Forms/subscribe-form';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { darkThemeOptions } from '../styles/mui-theme-dark';
 import { lightThemeOptions } from '../styles/mui-theme-light';
-import { checkNotifications, getBrowserName, isInSta } from '@/services/pushManager';
+import {
+   checkNotifications,
+   getBrowserName,
+   sendPushSample,
+} from '@/services/pushManager';
 
 export default function Navbar({ session }) {
    const [anchorElUser, setAnchorElUser] = useState(null);
@@ -35,18 +39,14 @@ export default function Navbar({ session }) {
    });
 
    useEffect(() => {
-      if (
-         getBrowserName() == 'Safari' 
-      ) {
-
-         
-         //need to figure out why this throwserrors in IOS all of the sudden
-         //isInStandaloneMode();
-         setDisplaySubscribe(true);
-         //alert(window.Notification.permission);
-      }
-      else{
-      checkNotifications();
+      if (getBrowserName() == 'Safari') {
+         if (window.navigator.standalone) {
+            setDisplaySubscribe(true);
+         } else {
+            // we should ask user to add our site home screen
+         }
+      } else {
+         checkNotifications();
       }
    });
 
@@ -154,15 +154,17 @@ export default function Navbar({ session }) {
             >
                <MenuDrawer session={userSession} />
             </SwipeableDrawer>
-            
+
             {displaySubscribe && (
                <Box>
-               <Typography>Subscribe to push notifications -&gt;</Typography>
-               <TransitionsModal
-                  text={'Subscribe'}
-                  contents={<SubscribeForm />}
-                  session={userSession}
-               /></Box>
+                  <Typography>Subscribe to push notifications -&gt;</Typography>
+                  <TransitionsModal
+                     text={'Subscribe'}
+                     contents={<SubscribeForm />}
+                     session={userSession}
+                  />
+                  <Button onClick={sendPushSample}>Sample Push</Button>
+               </Box>
             )}
          </AppBar>
       </ThemeProvider>
