@@ -38,6 +38,8 @@ export default function Navbar({ session }) {
       if (
          getBrowserName() == 'Safari' 
       ) {
+
+         //need to figure out why this throwserrors in IOS all of the sudden
          //isInStandaloneMode();
          setDisplaySubscribe(true);
          //alert(window.Notification.permission);
@@ -149,6 +151,7 @@ export default function Navbar({ session }) {
             >
                <MenuDrawer session={userSession} />
             </SwipeableDrawer>
+            
             {displaySubscribe && (
                <Box>
                <Typography>Subscribe to push notifications -&gt;</Typography>

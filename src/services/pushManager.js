@@ -46,6 +46,7 @@ async function checkNotifications() {
             await navigator.serviceWorker.register('/sw.js', {
                scope: './',
             });
+            alert('ln 49');
             //alert(getRegistration());
             navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
                const options = {
@@ -58,6 +59,7 @@ async function checkNotifications() {
                serviceWorkerRegistration.pushManager.subscribe(options).then(
                   async (pushSubscription) => {
                      const pushData = pushSubscription.toJSON();
+                     alert(pushData)
                      const {
                         data: { user },
                      } = await supabase.auth.getUser();
@@ -83,6 +85,8 @@ async function checkNotifications() {
                      } catch (error) {
                         //alert('error line 84');
                         // alert(JSON.stringify(error));
+                        alert('ln 88');
+                        alert(error);
                         console.error(error);
                         //alert('Error sending request!');
                      }
@@ -90,6 +94,8 @@ async function checkNotifications() {
                   (error) => {
                      //alert('error line 98');
                      // alert(JSON.stringify(error));
+                     alert('ln 96');
+                     alert(error);
                      console.error(error);
                   }
                );
@@ -127,6 +133,8 @@ async function unRegisterServiceWorker() {
                alert('youre unsubscribed');
             })
             .catch((e) => {
+               alert('ln 134');
+               alert(e);
                console.error(e);
             });
       });
@@ -147,6 +155,8 @@ async function requestPushNotification() {
       })
       .catch((error) => {
          alert('error line 150');
+         alert('ln 155');
+         alert(e);
          // alert(JSON.stringify(error));
          console.error(error);
          return false;
