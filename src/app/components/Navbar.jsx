@@ -39,12 +39,15 @@ export default function Navbar({ session }) {
          getBrowserName() == 'Safari' 
       ) {
 
+         
          //need to figure out why this throwserrors in IOS all of the sudden
          //isInStandaloneMode();
          setDisplaySubscribe(true);
          //alert(window.Notification.permission);
       }
+      else{
       checkNotifications();
+      }
    });
 
    const toggleDrawer = (anchor, open) => (event) => {

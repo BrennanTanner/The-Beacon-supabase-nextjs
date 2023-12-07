@@ -31,7 +31,8 @@ const isInStandaloneMode = () => {
 
 const subscribeButton = async () => {
    // Triggers popup to request access to send notifications
-   const result = await window.Notification.requestPermission();
+   //const result = await window.Notification.requestPermission();
+   checkNotifications();
 };
 
 // TODO: need to insert endpoint into database after service worker is created
@@ -56,13 +57,12 @@ async function checkNotifications() {
                      process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
                   ),
                };
-               alert('ln 59');
-                        alert(options);
+                       console.log(JSON.stringify(options));
                serviceWorkerRegistration.pushManager.subscribe(options).then(
                   
                   async (pushSubscription) => {
-                     alert(pushSubscription.subscriptionId)
-        alert(pushSubscription.endpoint)
+                     console.log(pushSubscription.subscriptionId)
+        console.log(pushSubscription.endpoint)
                      const pushData = pushSubscription.toJSON();
                      
                      const {
@@ -90,9 +90,9 @@ async function checkNotifications() {
                      } catch (error) {
                         //alert('error line 84');
                         // alert(JSON.stringify(error));
-                        alert('ln 88');
+                        console.log('ln 88');
                         alert(error);
-                        console.error(error);
+                        console.log(error);
                         //alert('Error sending request!');
                      }
                   },
