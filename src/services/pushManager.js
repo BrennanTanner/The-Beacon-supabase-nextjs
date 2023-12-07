@@ -46,9 +46,9 @@ async function checkNotifications() {
             await navigator.serviceWorker.register('/sw.js', {
                scope: './',
             });
-            alert('ln 49');
             //alert(getRegistration());
             navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
+               alert('line 51')
                const options = {
                   userVisibleOnly: true,
                   // applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
@@ -56,10 +56,15 @@ async function checkNotifications() {
                      process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
                   ),
                };
+               alert('ln 59');
+                        alert(options);
                serviceWorkerRegistration.pushManager.subscribe(options).then(
+                  
                   async (pushSubscription) => {
+                     alert(pushSubscription.subscriptionId)
+        alert(pushSubscription.endpoint)
                      const pushData = pushSubscription.toJSON();
-                     alert(pushData)
+                     
                      const {
                         data: { user },
                      } = await supabase.auth.getUser();
