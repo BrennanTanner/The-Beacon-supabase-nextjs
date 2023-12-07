@@ -38,6 +38,8 @@ const subscribeButton = async () => {
 
 const sendPushSample = ()=>{
    console.log(window.Notification.permission);
+   alert(window.Notification.permission);
+   
    const title = "Push title";
 const options = {
     body: "Additional text with some description",
