@@ -12,7 +12,7 @@ import {lightThemeOptions} from '../../styles/mui-theme-light';
 
 
 
-export default function BeaconCarousel({ session }) {
+export default function BeaconCarousel({ session, carouselIndex }) {
    const [loading, setLoading] = useState(true);
    const [groups, setGroups] = useState([]);
    const [userSession, setUserSession] = useState(session);
@@ -48,6 +48,7 @@ const theme = createTheme(prefersDarkMode ?darkThemeOptions : lightThemeOptions)
             cycleNavigation={true}
             swipe={false}
             sx={{height: "90vh",}}
+            index={carouselIndex || 0}
          >
             {groups.map((group) => {
                return <Beacon groupData={group} key={group.id}/>;

@@ -38,7 +38,7 @@ const sendPushSample = () => {
 
    const title = 'The Beacon Has been Lit!';
    const options = {
-      body: 'Head here to light your beacon',
+      body: 'Light your beacon in response',
       icon: '../../public/Pyre.svg',
       data: {
          url: 'https://www.lightthebeacon.app',

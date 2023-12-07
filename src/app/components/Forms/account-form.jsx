@@ -4,7 +4,7 @@ import { Button, TextField, Box } from '@mui/material';
 import { getProfile } from '@/services/dataFetchers';
 import { updateProfile } from '@/services/dataSenders';
 
-export default function AccountForm({ session }) {
+export default function AccountForm({ session, setAvatarLink }) {
    const [loading, setLoading] = useState(true);
    const [fullname, setFullname] = useState(null);
    const [username, setUsername] = useState(null);
@@ -73,9 +73,10 @@ export default function AccountForm({ session }) {
          />
          <Button
             variant='contained'
-            onClick={() =>
-               updateProfile(user.id, fullname, username, avatar_url)
-            }
+            onClick={() =>{
+               updateProfile(user.id, fullname, username, avatar_url);
+               setAvatarLink(avatar_url);
+            }}
             disabled={loading || !username || !fullname}
          >
             {loading ? 'Loading ...' : 'Update'}

@@ -16,7 +16,7 @@ import { getGroups } from '@/services/dataFetchers';
 import TransitionsModal from '../../Modal/modal';
 import GroupForm from '../../Forms/group-form';
 
-export default function GroupAccordion({ user, friends }) {
+export default function GroupAccordion({ user, friends, setCarouselIndex, toggleDrawer }) {
    const [loading, setLoading] = useState(true);
    const [expanded, setExpanded] = useState(false);
    const [groups, setGroups] = useState([]);
@@ -53,8 +53,8 @@ export default function GroupAccordion({ user, friends }) {
 
          <TransitionsModal text={'new Group'} contents={<GroupForm session={user} friends={friends}/>}/>
          
-            {groups.map((group) => (
-               <GroupCard group={group.groups} key={group.groups.id}
+            {groups.map((group, i) => (
+               <GroupCard group={group.groups} key={group.groups.id} setCarouselIndex={setCarouselIndex} toggleDrawer={toggleDrawer} index={i}
         />
             ))}
            

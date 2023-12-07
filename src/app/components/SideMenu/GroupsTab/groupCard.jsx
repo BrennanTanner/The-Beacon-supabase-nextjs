@@ -5,14 +5,16 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import FireIcon from '@mui/icons-material/LocalFireDepartment';
 
-export default function GroupCard(group) {
+export default function GroupCard({group, setCarouselIndex, toggleDrawer, index}) {
+   
    return (
-      <Card sx={{ maxWidth: 345, backgroundColor: '#474c55'}}>
-         <CardActionArea sx={{ display: 'flex', justifyContent: 'flex-start' }}>
+      <Card sx={{ maxWidth: 345, backgroundColor: '#474c55',margin: '10px 5px'}}>
+         <CardActionArea sx={{ display: 'flex', justifyContent: 'flex-start' }} onClick={()=>{setCarouselIndex(index);
+         toggleDrawer('left', false);}}>
             <FireIcon />
             <CardContent>
                <Typography gutterBottom variant='h5' component='div'>
-                  {group.group.group_name}
+                  {group.group_name}
                </Typography>
             </CardContent>
          </CardActionArea>

@@ -65,6 +65,9 @@ h5 {font-size: 1.333rem; /* 21.28px */}
 
 small {font-size: 0.750rem; /* 12px */}
 
+.beacon_title{
+ color: #f1f3f3!important;
+}
 
 :root {
   --max-width: 1100px;
@@ -135,6 +138,28 @@ a {
   
 }
 
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #323842 #101313;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #101313;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #474c55;
+    border-radius: 10px;
+    border: 0px solid #ffffff;
+  }
+
 .card-buttons button{
 margin-right: 10px;
 }
@@ -144,7 +169,7 @@ margin-right: 10px;
   background-color: #474c55;
 }
 
-.css-1ygvd26 {
+.MuiPaper-root .MuiPaper-elevation .MuiPaper-rounded .MuiPaper-elevation1 .MuiCard-root .css-1cdh7z2-MuiPaper-root-MuiCard-root {
   margin: 10px 5px;
 }
 

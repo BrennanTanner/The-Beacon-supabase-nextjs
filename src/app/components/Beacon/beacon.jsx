@@ -28,7 +28,7 @@ export default function Beacon({ groupData }) {
          >
             {beaconIsLit && <Fire />}
 
-            <Typography variant='h4'>{groupData.groups.group_name}</Typography>
+            <Typography variant='h4' className='beacon_title'>{groupData.groups.group_name}</Typography>
             <Button variant='contained' onClick={qeueBeacon}>
                {(beaconIsLit && 'Put Out Beacon') || 'Light Beacon'}
             </Button>
