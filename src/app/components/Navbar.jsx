@@ -154,17 +154,19 @@ export default function Navbar({ session }) {
             >
                <MenuDrawer session={userSession} />
             </SwipeableDrawer>
-
+            <Button
+               variant='contained'
+               color='secondary'
+               onClick={sendPushSample}
+            >
+               Sample Push
+            </Button>
             {displaySubscribe && (
-               <Box>
-                  <Typography>Subscribe to push notifications -&gt;</Typography>
-                  <TransitionsModal
-                     text={'Subscribe'}
-                     contents={<SubscribeForm />}
-                     session={userSession}
-                  />
-                  <Button onClick={sendPushSample}>Sample Push</Button>
-               </Box>
+               <TransitionsModal
+                  text={'Subscribe'}
+                  contents={<SubscribeForm />}
+                  session={userSession}
+               />
             )}
          </AppBar>
       </ThemeProvider>
