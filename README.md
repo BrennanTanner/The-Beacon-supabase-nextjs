@@ -3,8 +3,11 @@
 
 The Beacon is a simple messaging service that allows users to notify a group of friends that a beacon has been lit. Communication is limited to sending one simple signal. This was a creative project meant to stretch me and create a usable application. 
 
-![Beacon On](/images/image1.png)
-![Beacon Off](http://url/to/img.png)
+<img src="/public/images/image1.png" width="250" > <img src="/public/images/image2.png" width="250" >
+
+
+Try it at: [lightthebeacon.app](https://www.lightthebeacon.app/)
+
 
 ## The stack
 
