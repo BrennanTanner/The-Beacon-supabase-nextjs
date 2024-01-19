@@ -176,17 +176,20 @@ async function requestPushNotification() {
       alert(permission);
       return true;
    }).catch((error) => {
+      alert('ln 179');
       alert(error);
       return false;
    });
 
+   alert('ln 184');
+
    window.Notification.requestPermission()
       .then(() => {
+         alert('ln 186');
          return true;
       })
       .catch((error) => {
-         alert('error line 150');
-         alert('ln 155');
+         alert('error line 190');
          alert(e);
          // alert(JSON.stringify(error));
          console.error(error);
