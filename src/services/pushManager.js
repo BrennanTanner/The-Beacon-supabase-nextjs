@@ -171,30 +171,30 @@ async function unRegisterServiceWorker() {
 }
 
 async function requestPushNotification() {
-   // window.Notification.requestPermission((permission) => {
-   //    alert('ln 178');
-   //    alert(permission);
-   //    return true;
-   // }).catch((error) => {
-   //    alert('ln 179');
-   //    alert(error);
-   //    return false;
-   // });
+   window.Notification.requestPermission((permission) => {
+      alert('ln 178');
+      alert(permission);
+      return true;
+   }).catch((error) => {
+      alert('ln 179');
+      alert(error);
+      return false;
+   });
 
-   // alert('ln 184');
+   //alert('ln 184');
 
-   window.Notification.requestPermission()
-      .then(() => {
-         alert('ln 186');
-         return true;
-      })
-      .catch((error) => {
-         alert('error line 190');
-         alert(e);
-         // alert(JSON.stringify(error));
-         console.error(error);
-         return false;
-      });
+   // window.Notification.requestPermission()
+   //    .then(() => {
+   //       alert('ln 186');
+   //       return true;
+   //    })
+   //    .catch((error) => {
+   //       alert('error line 190');
+   //       alert(e);
+   //       // alert(JSON.stringify(error));
+   //       console.error(error);
+   //       return false;
+   //    });
 }
 // Convert a base64 string to Uint8Array.
 // Must do this so the server can understand the VAPID_PUBLIC_KEY.
