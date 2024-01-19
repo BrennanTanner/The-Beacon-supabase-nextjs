@@ -57,11 +57,11 @@ async function checkNotifications() {
             //alert('line 43');
             // Register the service worker.
             if (getBrowserName() == 'Safari') {
-               await navigator.serviceWorker.register('/swIOS.js', {
+               await navigator.serviceWorker.register('/sw.js', {
                   scope: './',
                });
             } else {
-               await navigator.serviceWorker.register('/swIOS.js', {
+               await navigator.serviceWorker.register('/sw.js', {
                   scope: './',
                });
             }
