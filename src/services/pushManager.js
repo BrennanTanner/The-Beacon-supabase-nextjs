@@ -181,7 +181,7 @@ async function requestPushNotification() {
       return false;
    });
 
-   //alert('ln 184');
+   alert('ln 184');
 
    // window.Notification.requestPermission()
    //    .then(() => {
