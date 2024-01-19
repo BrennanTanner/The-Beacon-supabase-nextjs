@@ -172,8 +172,19 @@ async function unRegisterServiceWorker() {
 }
 
 async function requestPushNotification() {
+  
+   window.Notification.requestPermission((permission) => {
+      console.log(permission);
+      alert('ln 178');
+      alert(permission);
+          }).catch((error) => {
+            alert(error);
+          });
+      
+
    window.Notification.requestPermission()
       .then(() => {
+
          return true;
       })
       .catch((error) => {

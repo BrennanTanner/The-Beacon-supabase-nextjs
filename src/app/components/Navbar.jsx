@@ -29,7 +29,7 @@ import {
    sendPushSample,
 } from '@/services/pushManager';
 
-export default function Navbar({ session,setCarouselIndex }) {
+export default function Navbar({ session, setCarouselIndex }) {
    
    const [anchorElUser, setAnchorElUser] = useState(null);
    const [userSession, setUserSession] = useState(session);
