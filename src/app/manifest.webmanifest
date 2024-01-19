@@ -17,5 +17,6 @@
     "background_color": "#474c55",
     "start_url": "https://www.lightthebeacon.app/",
     "display": "standalone",
+    "description": "Light the Beacon and heed the call!",
     "orientation": "portrait"
 }

@@ -35,7 +35,6 @@ const subscribeButton = async () => {
 };
 
 const sendPushSample = () => {
-
    const title = 'The Beacon Has been Lit!';
    const options = {
       body: 'Light your beacon in response',
@@ -108,7 +107,7 @@ async function checkNotifications() {
                      } catch (error) {
                         //alert('error line 84');
                         // alert(JSON.stringify(error));
-                        
+
                         alert(error);
                         console.log(error);
                         //alert('Error sending request!');
@@ -117,7 +116,7 @@ async function checkNotifications() {
                   (error) => {
                      //alert('error line 98');
                      // alert(JSON.stringify(error));
-                     
+
                      alert(error);
                      console.error(error);
                   }
@@ -172,19 +171,17 @@ async function unRegisterServiceWorker() {
 }
 
 async function requestPushNotification() {
-  
    window.Notification.requestPermission((permission) => {
-      console.log(permission);
       alert('ln 178');
       alert(permission);
-          }).catch((error) => {
-            alert(error);
-          });
-      
+      return true;
+   }).catch((error) => {
+      alert(error);
+      return false;
+   });
 
    window.Notification.requestPermission()
       .then(() => {
-
          return true;
       })
       .catch((error) => {
