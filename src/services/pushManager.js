@@ -171,17 +171,17 @@ async function unRegisterServiceWorker() {
 }
 
 async function requestPushNotification() {
-   window.Notification.requestPermission((permission) => {
-      alert('ln 178');
-      alert(permission);
-      return true;
-   }).catch((error) => {
-      alert('ln 179');
-      alert(error);
-      return false;
-   });
+   // window.Notification.requestPermission((permission) => {
+   //    alert('ln 178');
+   //    alert(permission);
+   //    return true;
+   // }).catch((error) => {
+   //    alert('ln 179');
+   //    alert(error);
+   //    return false;
+   // });
 
-   alert('ln 184');
+   // alert('ln 184');
 
    window.Notification.requestPermission()
       .then(() => {
