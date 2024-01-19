@@ -171,7 +171,7 @@ async function unRegisterServiceWorker() {
 }
 
 async function requestPushNotification() {
-   window.Notification.requestPermission((permission) => {
+   await window.Notification.requestPermission((permission) => {
       alert('ln 178');
       alert(permission);
       return true;
