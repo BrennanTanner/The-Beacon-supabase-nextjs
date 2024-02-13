@@ -12,10 +12,15 @@ import {lightThemeOptions} from '../../styles/mui-theme-light';
 
 
 
+
+
 export default function BeaconCarousel({ session, carouselIndex }) {
    const [loading, setLoading] = useState(true);
    const [groups, setGroups] = useState([]);
    const [userSession, setUserSession] = useState(session);
+
+ 
+
 
    const groupData = useCallback(async () => {
       setLoading(true);
@@ -25,6 +30,7 @@ export default function BeaconCarousel({ session, carouselIndex }) {
 
    useEffect(() => {
       groupData();
+
    }, []);
 
    const qeueBeacon = useCallback((group) => {

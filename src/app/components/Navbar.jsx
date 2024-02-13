@@ -30,10 +30,11 @@ import {
 } from '@/services/pushManager';
 
 export default function Navbar({ session, setCarouselIndex }) {
-   
    const [anchorElUser, setAnchorElUser] = useState(null);
    const [userSession, setUserSession] = useState(session);
-   const [avatarLink, setAvatarLink] = useState(session.user.user_metadata.avatar_url);
+   const [avatarLink, setAvatarLink] = useState(
+      session.user.user_metadata.avatar_url
+   );
    const [displaySubscribe, setDisplaySubscribe] = useState(false);
    const [drawerOpen, setDrawerOpen] = useState({
       left: false,
@@ -102,7 +103,7 @@ export default function Navbar({ session, setCarouselIndex }) {
                      <Tooltip title='Open settings'>
                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                            <Avatar
-                              alt={session.user.user_metadata. full_name}
+                              alt={session.user.user_metadata.full_name}
                               src={avatarLink}
                            />
                         </IconButton>
@@ -127,7 +128,12 @@ export default function Navbar({ session, setCarouselIndex }) {
                         <MenuItem key='1' onClick={handleCloseUserMenu}>
                            <TransitionsModal
                               text={'Profile'}
-                              contents={<AccountForm setAvatarLink = {setAvatarLink} session={userSession} />}
+                              contents={
+                                 <AccountForm
+                                    setAvatarLink={setAvatarLink}
+                                    session={userSession}
+                                 />
+                              }
                            />
                         </MenuItem>
 
@@ -153,9 +159,12 @@ export default function Navbar({ session, setCarouselIndex }) {
                open={drawerOpen['left']}
                onClose={toggleDrawer('left', false)}
                onOpen={toggleDrawer('left', true)}
-
             >
-               <MenuDrawer session={userSession} setCarouselIndex={setCarouselIndex} toggleDrawer={toggleDrawer} />
+               <MenuDrawer
+                  session={userSession}
+                  setCarouselIndex={setCarouselIndex}
+                  toggleDrawer={toggleDrawer}
+               />
             </SwipeableDrawer>
             <Button
                variant='contained'
@@ -169,7 +178,6 @@ export default function Navbar({ session, setCarouselIndex }) {
                   text={'Subscribe'}
                   contents={<SubscribeForm />}
                   session={userSession}
-                  
                />
             )}
          </AppBar>

@@ -2,6 +2,17 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 const supabase = createClientComponentClient();
 
+
+async function getRealtime(channel, table, handleUpdates) {
+   //Listen to inserts
+ supabase
+ .channel(channel)
+ .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: table }, handleUpdates)
+ .subscribe()
+
+ 
+}
+
 async function getGroups(user) {
    try {
       const { data, error, status } = await supabase
@@ -143,6 +154,7 @@ async function getProfile(user) {
 }
 
 module.exports = {
+   getRealtime,
    getGroups,
    getFriends,
    searchUsers,
